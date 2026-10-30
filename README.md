@@ -84,11 +84,12 @@ $r = 0$.
 | triangular | 1 | 0 | — | — |
 | biweight | 4 | 2 | 1 | 0 |
 | triweight | 6 | 3 | 2 | 1 |
-| tricube | 9 | 4 | 3 | 2 |
+| tricube | 9 | 3 | 2 | 1 |
 | pow(s,t) | $\min(st, 16)$ | $\min(r^\ast, 6)$ | $\min(r^\ast-1, 6)$ | $\min(r^\ast-2, 6)$ |
 
-For Pow(s,t), $r^\ast$ is the largest integer $r < t + \frac12$ (and
-$r < s + \frac12$ when $s$ is not an integer). Examples: `pow(2,3)` 6, 3, 2, 1;
+For Pow(s,t), $r^\ast$ is the largest integer $r < t + \frac12$, with $2r \le st$
+when $s$ and $t$ are integers and $r < s + \frac12$ when $s$ is not an integer
+(so `pow(3,3)` and `tricube` both give 3, 2, 1). Examples: `pow(2,3)` 6, 3, 2, 1;
 `pow(2,8)` 16, 6, 6, 6; `pow(1.5,2.5)` 16, 1, 0, —. `h.scv` (Gaussian kernel)
 has no limit and `h.mlcv` is for $r = 0$ only. The same table is in
 `?kedd` (section *Maximum derivative order*).
@@ -298,7 +299,7 @@ To cite the package (`citation("kedd")`):
 - Stute, W. (1992). Modified cross validation in density estimation. *Journal of
   Statistical Planning and Inference*, **30**, 293–305.
 - Wand, M. P. and Jones, M. C. (1995). *Kernel Smoothing*. Chapman & Hall.
-- Wolfgang, H., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for
+- Härdle, W., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for
   density derivatives. *Journal of the Royal Statistical Society B*, **52**,
   223–232.
 
