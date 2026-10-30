@@ -139,13 +139,13 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
             <tr><td><code>triangular</code></td><td class="math">1&minus;|x|</td><td>[&minus;1,1]</td><td>1</td><td>0 / &ndash; / &ndash;</td></tr>
             <tr><td><code>biweight</code></td><td class="math">15/16 (1&minus;x&sup2;)&sup2;</td><td>[&minus;1,1]</td><td>4</td><td>2 / 1 / 0</td></tr>
             <tr><td><code>triweight</code></td><td class="math">35/32 (1&minus;x&sup2;)&sup3;</td><td>[&minus;1,1]</td><td>6</td><td>3 / 2 / 1</td></tr>
-            <tr><td><code>tricube</code></td><td class="math">70/81 (1&minus;|x|&sup3;)&sup3;</td><td>[&minus;1,1]</td><td>9</td><td>4 / 3 / 2</td></tr>
+            <tr><td><code>tricube</code></td><td class="math">70/81 (1&minus;|x|&sup3;)&sup3;</td><td>[&minus;1,1]</td><td>9</td><td>3 / 2 / 1</td></tr>
             <tr><td><code>cosine</code></td><td class="math">&pi;/4 cos(&pi;x/2)</td><td>[&minus;1,1]</td><td>any</td><td>any</td></tr>
             <tr><td><code>silverman</code></td><td class="math">&frac12;e<sup>&minus;|x|/&radic;2</sup>sin(|x|/&radic;2+&pi;/4)</td><td>&#8477;</td><td>any</td><td>any</td></tr>
             <tr><td><code>logistic</code></td><td class="math">e<sup>&minus;x</sup>/(1+e<sup>&minus;x</sup>)&sup2;</td><td>&#8477;</td><td>20</td><td>8 / 8 / 8</td></tr>
             <tr><td><code>pow(s,t)</code></td><td class="math">c<sub>s,t</sub>(1&minus;|x|<sup>s</sup>)<sup>t</sup></td><td>[&minus;1,1]</td><td>min(st,16)</td><td>r*/r*&minus;1/r*&minus;2</td></tr>
           </table>
-          <p class="note" style="margin-top:1.2mm">Names can be abbreviated (<code>"epa"</code>). r<sub>max</sub>: last non-zero K<sup>(r)</sup> (kernel.fun, kernel.conv, dkde). UCV (also BCV, TCV, AMISE) / MCV / CCV: highest r with a finite criterion, else <code>NA</code> + warning; SCV: any, MLCV: 0; &ndash; = not available; r* = largest integer &lt; t+&frac12; (and &lt; s+&frac12; if s is not an integer), at most 6.</p>
+          <p class="note" style="margin-top:1.2mm">Names can be abbreviated (<code>"epa"</code>). r<sub>max</sub>: last non-zero K<sup>(r)</sup> (kernel.fun, kernel.conv, dkde). UCV (also BCV, TCV, AMISE) / MCV / CCV: highest r with a finite criterion, else <code>NA</code> + warning; SCV: any, MLCV: 0; &ndash; = not available; r* = largest integer r &lt; t+&frac12; (2r &le; st if s, t are integers; r &lt; s+&frac12; if s is not), at most 6.</p>
         </div>
       </section>
 
