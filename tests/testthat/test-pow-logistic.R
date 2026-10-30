@@ -200,12 +200,26 @@ test_that("selecteurs avec pow non entier et derivees", {
   }
 })
 
+test_that("pow(s,t) et noyau nomme : memes ordres maximaux pour les selecteurs", {
+  sel <- list(ucv = h.ucv, mcv = h.mcv, ccv = h.ccv)
+  for (k in names(pow_equiv)) for (nm in names(sel)) for (r in 0:5) {
+    a <- is.na(suppressWarnings(sel[[nm]](xs, deriv.order = r, kernel = k))@h)
+    b <- is.na(suppressWarnings(sel[[nm]](xs, deriv.order = r, kernel = pow_equiv[[k]]))@h)
+    expect_identical(b, a, label = paste(nm, pow_equiv[[k]], "r =", r))
+  }
+  ## tricube = pow(3,3) : UCV 3, MCV 2, CCV 1
+  expect_false(is.na(h.ucv(xs, deriv.order = 3L, kernel = "tricube")@h))
+  expect_warning(h.ucv(xs, deriv.order = 4L, kernel = "tricube"), "maximum order")
+  expect_warning(h.mcv(xs, deriv.order = 3L, kernel = "tricube"), "maximum order")
+  expect_warning(h.ccv(xs, deriv.order = 2L, kernel = "tricube"), "maximum order")
+})
+
 test_that("pow : ordres de derivee non admissibles -> NA + warning", {
-  expect_warning(bw <- h.ucv(xs, deriv.order = 2L, kernel = "pow(2,1)"), "identically 0")
+  expect_warning(bw <- h.ucv(xs, deriv.order = 2L, kernel = "pow(2,1)"), "maximum order")
   expect_true(is.na(bw@h))
-  expect_warning(bw <- h.bcv(xs, deriv.order = 7L, kernel = "pow(2,20)"), "identically 0")
+  expect_warning(bw <- h.bcv(xs, deriv.order = 7L, kernel = "pow(2,20)"), "maximum order")
   expect_true(is.na(bw@h))
-  expect_warning(bw <- h.amise(xs, deriv.order = 2L, kernel = "pow(1.2,4)"), "identically 0")
+  expect_warning(bw <- h.amise(xs, deriv.order = 2L, kernel = "pow(1.2,4)"), "maximum order")
   expect_true(is.na(bw@h))
   expect_warning(bw <- h.ccv(xs, kernel = "pow(1.5,2.5)"), "CCV")
   expect_true(is.na(bw@h))
@@ -284,6 +298,6 @@ test_that("logistic : tous les selecteurs, r = 0 et r = 1", {
                   label = paste(bw@method, "logistic r =", r))
     }
   }
-  expect_warning(bw <- h.ucv(xs, deriv.order = 9L, kernel = "logistic"), "identically 0")
+  expect_warning(bw <- h.ucv(xs, deriv.order = 9L, kernel = "logistic"), "maximum order")
   expect_true(is.na(bw@h))
 })
