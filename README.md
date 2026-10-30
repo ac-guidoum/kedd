@@ -6,6 +6,7 @@
 [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/kedd)](https://cran.r-project.org/package=kedd)
 [![Monthly downloads](https://cranlogs.r-pkg.org/badges/kedd)](https://cran.r-project.org/package=kedd)
 [![Weekly downloads](https://cranlogs.r-pkg.org/badges/last-week/kedd)](https://cran.r-project.org/package=kedd)
+[![Test coverage](https://img.shields.io/badge/coverage-99.5%25-brightgreen)](#tests)
 
 The `kedd` package (v2.0.0) provides nonparametric kernel smoothing tools for
 [R](https://www.r-project.org/): kernel estimation of a density **and of its
@@ -20,21 +21,25 @@ with ggplot2 graphics; the $O(n^2)$ criteria run in C++ (Rcpp) with OpenMP.
 
 ### Kernel functions (10 named kernels + the Pow(s,t) family)
 
-| Kernel | Formula | Support |
-|--------|---------|---------|
-| Gaussian | $K(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ | $(-\infty, +\infty)$ |
-| Epanechnikov | $K(x) = \frac{3}{4}(1-x^2)$ | $[-1, 1]$ |
-| Uniform | $K(x) = \frac{1}{2}$ | $[-1, 1]$ |
-| Triangular | $K(x) = 1-\lvert x\rvert$ | $[-1, 1]$ |
-| Biweight | $K(x) = \frac{15}{16}(1-x^2)^2$ | $[-1, 1]$ |
-| Triweight | $K(x) = \frac{35}{32}(1-x^2)^3$ | $[-1, 1]$ |
-| Tricube | $K(x) = \frac{70}{81}(1-\lvert x\rvert^3)^3$ | $[-1, 1]$ |
-| Cosine | $K(x) = \frac{\pi}{4}\cos\left(\frac{\pi x}{2}\right)$ | $[-1, 1]$ |
-| Silverman | $K(x) = \frac{1}{2}e^{-\lvert x\rvert/\sqrt{2}}\sin\left(\frac{\lvert x\rvert}{\sqrt{2}}+\frac{\pi}{4}\right)$ | $(-\infty, +\infty)$ |
-| Logistic | $K(x) = \frac{e^{-x}}{(1+e^{-x})^2} = \frac{1}{4}\mathrm{sech}^2(x/2)$ | $(-\infty, +\infty)$ |
-| Pow(s,t) | $K(x) = c_{s,t}(1-\lvert x\rvert^s)^t$, $c_{s,t} = \frac{s}{2B(1/s,\,t+1)}$ | $[-1, 1]$ |
+| Kernel | Formula | Support | r max |
+|--------|---------|---------|:---:|
+| Gaussian | $K(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ | $(-\infty, +\infty)$ | any |
+| Epanechnikov | $K(x) = \frac{3}{4}(1-x^2)$ | $[-1, 1]$ | 2 |
+| Uniform | $K(x) = \frac{1}{2}$ | $[-1, 1]$ | 0 |
+| Triangular | $K(x) = 1-\lvert x\rvert$ | $[-1, 1]$ | 1 |
+| Biweight | $K(x) = \frac{15}{16}(1-x^2)^2$ | $[-1, 1]$ | 4 |
+| Triweight | $K(x) = \frac{35}{32}(1-x^2)^3$ | $[-1, 1]$ | 6 |
+| Tricube | $K(x) = \frac{70}{81}(1-\lvert x\rvert^3)^3$ | $[-1, 1]$ | 9 |
+| Cosine | $K(x) = \frac{\pi}{4}\cos\left(\frac{\pi x}{2}\right)$ | $[-1, 1]$ | any |
+| Silverman | $K(x) = \frac{1}{2}e^{-\lvert x\rvert/\sqrt{2}}\sin\left(\frac{\lvert x\rvert}{\sqrt{2}}+\frac{\pi}{4}\right)$ | $(-\infty, +\infty)$ | any |
+| Logistic | $K(x) = \frac{e^{-x}}{(1+e^{-x})^2} = \frac{1}{4}\mathrm{sech}^2(x/2)$ | $(-\infty, +\infty)$ | 20 |
+| Pow(s,t) | $K(x) = c_{s,t}(1-\lvert x\rvert^s)^t$, $c_{s,t} = \frac{s}{2B(1/s,\,t+1)}$ | $[-1, 1]$ | $\min(st, 16)$ |
 
-Kernels with support $[-1, 1]$ are zero outside it.
+Kernels with support $[-1, 1]$ are zero outside it. "r max" is the highest
+derivative order with $K^{(r)} \ne 0$ (`kernel.fun()`, `kernel.conv()`,
+`dkde()`); for Pow(s,t) it is $\min(st, 16)$ when $s$ and $t$ are integers and
+16 otherwise. The selectors have lower limits, given in
+[Maximum derivative order](#maximum-derivative-order-r).
 
 The power family is passed as `kernel = "pow(s,t)"` (or `kernel.pow(s, t)`)
 and contains uniform `pow(s,0)`, triangular `pow(1,1)`, Epanechnikov `pow(2,1)`,
@@ -47,17 +52,44 @@ functions. Logistic derivatives are available up to order 20.
 
 | Function | Method | Derivative order r | Reference |
 |----------|--------|:---:|-----------|
-| `h.amise` | Asymptotic MISE rule (normal reference) | any | Wand & Jones (1995) |
-| `h.ucv` | Unbiased (least-squares) Cross-Validation | any | Rudemo (1982), Bowman (1984) |
-| `h.bcv` | Biased Cross-Validation (BCV1, BCV2) | any | Scott & Terrell (1987) |
-| `h.ccv` | Complete Cross-Validation | any | Jones & Kappenman (1991) |
-| `h.mcv` | Modified Cross-Validation | any | Stute (1992) |
-| `h.tcv` | Trimmed Cross-Validation | any | Feluch & Koronacki (1992) |
+| `h.amise` | Asymptotic MISE rule (normal reference) | $r \ge 0$ ¹ | Wand & Jones (1995) |
+| `h.ucv` | Unbiased (least-squares) Cross-Validation | $r \ge 0$ ¹ | Rudemo (1982), Bowman (1984) |
+| `h.bcv` | Biased Cross-Validation (BCV1, BCV2) | $r \ge 0$ ¹ | Scott & Terrell (1987) |
+| `h.ccv` | Complete Cross-Validation | $r \ge 0$ ¹ | Jones & Kappenman (1991) |
+| `h.mcv` | Modified Cross-Validation | $r \ge 0$ ¹ | Stute (1992) |
+| `h.tcv` | Trimmed Cross-Validation | $r \ge 0$ ¹ | Feluch & Koronacki (1992) |
 | `h.scv` | Smoothed Cross-Validation (Gaussian kernel) | any | Hall, Marron & Park (1992) |
 | `h.mlcv` | Maximum-Likelihood Cross-Validation | 0 | Habbema et al. (1974), Duin (1976) |
 
+¹ up to the maximum order of the kernel, see the next table.
+
 All selectors return an S4 object of class `bandwidth`; the search interval is
 `[0.01 * hos, 2 * hos]` by default, `hos` being the over-smoothing bandwidth.
+
+### Maximum derivative order r
+
+Highest `deriv.order` for each kernel. Above it, `kernel.fun()`,
+`kernel.conv()` and `dkde()` return zero, and the selectors return `h = NA`
+with a warning (the criterion is not finite); "—" means not available even at
+$r = 0$.
+
+| Kernel | `kernel.fun`, `kernel.conv`, `dkde` | `h.ucv`, `h.bcv`, `h.tcv`, `h.amise` | `h.mcv` | `h.ccv` |
+|---|:---:|:---:|:---:|:---:|
+| gaussian, cosine, silverman | any | any | any | any |
+| logistic | 20 | 8 | 8 | 8 |
+| epanechnikov | 2 | 1 | 0 | — |
+| uniform | 0 | 0 | — | — |
+| triangular | 1 | 0 | — | — |
+| biweight | 4 | 2 | 1 | 0 |
+| triweight | 6 | 3 | 2 | 1 |
+| tricube | 9 | 4 | 3 | 2 |
+| pow(s,t) | $\min(st, 16)$ | $\min(r^\ast, 6)$ | $\min(r^\ast-1, 6)$ | $\min(r^\ast-2, 6)$ |
+
+For Pow(s,t), $r^\ast$ is the largest integer $r < t + \frac12$ (and
+$r < s + \frac12$ when $s$ is not an integer). Examples: `pow(2,3)` 6, 3, 2, 1;
+`pow(2,8)` 16, 6, 6, 6; `pow(1.5,2.5)` 16, 1, 0, —. `h.scv` (Gaussian kernel)
+has no limit and `h.mlcv` is for $r = 0$ only. The same table is in
+`?kedd` (section *Maximum derivative order*).
 
 ### Main functions
 
@@ -165,8 +197,23 @@ derivative, for every kernel and every implemented order, against numerical
 integration, and checks Pow(s,t) against the named kernels it generalises
 (identical kernels, convolutions and bandwidths).
 
+Line coverage measured with [`covr`](https://CRAN.R-project.org/package=covr)
+(tests only): **99.5 %** overall.
+
+| File | Coverage | File | Coverage |
+|---|---:|---|---:|
+| `src/kedd.cpp` | 99.6 % | `R/h.mcv.R` | 100 % |
+| `R/bandwidth-class.R` | 100 % | `R/h.mlcv.R` | 100 % |
+| `R/dkde.R` | 98.9 % | `R/h.scv.R` | 100 % |
+| `R/h.amise.R` | 100 % | `R/h.tcv.R` | 100 % |
+| `R/h.bcv.R` | 100 % | `R/h.ucv.R` | 100 % |
+| `R/h.ccv.R` | 100 % | `R/kernel.fun.R` | 98.4 % |
+| `R/utils.R` | 98.3 % | | |
+
 ```r
-covr::package_coverage("path/to/kedd_2.0.0")   # line coverage
+cv <- covr::package_coverage("path/to/kedd_2.0.0", type = "tests")
+covr::percent_coverage(cv)                     # 99.5
+covr::report(cv)                               # line-by-line HTML report
 source("data-raw/benchmark.R")                 # execution time of every function
 ```
 
