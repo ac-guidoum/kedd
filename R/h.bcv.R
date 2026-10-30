@@ -20,7 +20,7 @@ h.bcv <- function(x, whichbcv = 1L, deriv.order = 0L, kernel = "gaussian",
   v <- .check_bw_args(x, deriv.order, kernel, nthreads)
   method <- if (whichbcv == 1L) "BCV1" else "BCV2"
   if (v$bad) {
-    warning("kernel is identically 0 for this derivative order.")
+    warning("deriv.order is above the maximum order for this kernel; h = NA.")
     return(new("bandwidth", data = v$x, kernel = v$kernel,
                deriv.order = v$r, h = NA_real_, min.obj = NA_real_,
                hos = NA_real_, method = method))
