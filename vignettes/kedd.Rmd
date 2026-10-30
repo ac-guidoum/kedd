@@ -69,7 +69,28 @@ order that is not identically zero.
 | `cosine` | $\frac{\pi}{4}\cos\frac{\pi x}{2}$ | $[-1,1]$ | any |
 | `silverman` | $\frac12 e^{-\lvert x\rvert/\sqrt2}\sin\!\big(\frac{\lvert x\rvert}{\sqrt2}+\frac{\pi}{4}\big)$ | $\mathbb{R}$ | any |
 | `logistic` | $\frac{e^{-x}}{(1+e^{-x})^2}$ | $\mathbb{R}$ | 20 |
-| `pow(s,t)` | $c_{s,t}(1-\lvert x\rvert^s)^t$, $c_{s,t} = \frac{s}{2B(1/s,\,t+1)}$ | $[-1,1]$ | 16 |
+| `pow(s,t)` | $c_{s,t}(1-\lvert x\rvert^s)^t$, $c_{s,t} = \frac{s}{2B(1/s,\,t+1)}$ | $[-1,1]$ | $\min(st,16)$ |
+
+For `pow(s,t)`, $\min(st, 16)$ applies when $s$ and $t$ are integers (16
+otherwise). The bandwidth selectors need $R(K^{(r)}) < \infty$ (and MCV, CCV
+use $K^{(r+1)}$, $K^{(r+2)}$), so their maximum order is lower. Above it they
+return `h = NA` with a warning; "—" means not available even at $r = 0$:
+
+| kernel | `h.ucv`, `h.bcv`, `h.tcv`, `h.amise` | `h.mcv` | `h.ccv` |
+|---|:---:|:---:|:---:|
+| `gaussian`, `cosine`, `silverman` | any | any | any |
+| `logistic` | 8 | 8 | 8 |
+| `epanechnikov` | 1 | 0 | — |
+| `uniform` | 0 | — | — |
+| `triangular` | 0 | — | — |
+| `biweight` | 2 | 1 | 0 |
+| `triweight` | 3 | 2 | 1 |
+| `tricube` | 4 | 3 | 2 |
+| `pow(s,t)` | $\min(r^\ast, 6)$ | $\min(r^\ast-1, 6)$ | $\min(r^\ast-2, 6)$ |
+
+Here $r^\ast$ is the largest integer $r < t + \frac12$ (and $r < s + \frac12$
+when $s$ is not an integer); e.g. `pow(2,3)`: 3, 2, 1. `h.scv` (Gaussian
+kernel) has no limit and `h.mlcv` is for $r = 0$ only.
 
 `kernel.fun()` evaluates $K^{(r)}$ on a grid (or at given points) and returns an
 object of class `kfun`:
