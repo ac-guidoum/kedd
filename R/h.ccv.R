@@ -19,10 +19,10 @@ h.ccv <- function(x, deriv.order = 0L, kernel = "gaussian",
     (v$kernel == "epanechnikov" && 2L * (v$r + 2L) >= 3L) ||
     (v$kernel == "biweight"     && 2L * (v$r + 2L) >= 5L) ||
     (v$kernel == "triweight"    && 2L * (v$r + 2L) >= 7L) ||
-    (v$kernel == "tricube"      && 2L * (v$r + 2L) >= 10L) ||
+    (v$kernel == "tricube"      && 2L * (v$r + 2L) >= 7L) ||
     (startsWith(v$kernel, "pow(") && .pow_bad(v$kernel, v$r + 2L))
   if (bad_ccv) {
-    warning("kernel is 0 for the derivative orders required by CCV.")
+    warning("deriv.order is above the maximum order of CCV for this kernel; h = NA.")
     return(new("bandwidth", data = v$x, kernel = v$kernel,
                deriv.order = v$r, h = NA_real_, min.obj = NA_real_,
                hos = NA_real_, method = "CCV"))
