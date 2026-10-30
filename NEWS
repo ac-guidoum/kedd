@@ -14,10 +14,6 @@ Version 2.0.0: 2026-10-30    o Version 2.0.0 released.
                                kernel.fun() and kernel.conv(). It reproduces
                                uniform, triangular, Epanechnikov, biweight,
                                triweight and tricube exactly.
-                             o h.scv(): the SCV criterion is now correct for
-                               derivatives (r > 0); the bias term uses the
-                               (2r)-th derivatives of the normal convolutions
-                               with sign (-1)^r (it was the r = 0 term).
                              o nthreads: 0 now always means all cores (capped
                                by OMP_THREAD_LIMIT) and a call no longer
                                changes the threads of later calls; h.ucv()
