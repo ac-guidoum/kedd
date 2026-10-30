@@ -1,0 +1,7 @@
+^data-raw$
+^cheatsheet$
+^\.github$
+^\.gitignore$
+^LICENSE$
+^.*\.Rproj$
+^\.Rproj\.user$
