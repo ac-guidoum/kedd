@@ -15,7 +15,9 @@ h.scv(x, g = NULL, deriv.order = 0L, kernel = "gaussian",
   \item{x}{numeric vector of data values.}
   \item{g}{pilot bandwidth (positive number).  If \code{NULL} (default),
     \eqn{g = \hat{\sigma}\,0.9266\,n^{-2/13}} (Hall et al. 1992, eq. 4.2).}
-  \item{deriv.order}{non-negative integer: derivative order \eqn{r}.}
+  \item{deriv.order}{non-negative integer: derivative order \eqn{r}; no upper
+    limit (Gaussian kernel). See \code{\link{kedd-package}}, section
+    \sQuote{Maximum derivative order}.}
   \item{kernel}{must be \code{"gaussian"}, the only kernel for which the
     SCV criterion is available in closed form.}
   \item{lower, upper}{bounds of the search interval.  Defaults to
