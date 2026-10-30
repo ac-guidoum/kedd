@@ -15,9 +15,10 @@ h.ucv(x, deriv.order = 0L, kernel = "gaussian",
   \item{deriv.order}{non-negative integer: derivative order \eqn{r}. Maximum
     \eqn{r} for this selector: any for gaussian, cosine and silverman;
     logistic 8; epanechnikov 1; uniform 0; triangular 0; biweight 2;
-    triweight 3; tricube 4; \code{pow(s,t)} \eqn{\min(r^*, 6)}{min(r*, 6)}, where
+    triweight 3; tricube 3; \code{pow(s,t)} \eqn{\min(r^*, 6)}{min(r*, 6)}, where
     \eqn{r^*}{r*} is the largest integer \eqn{r < t + 1/2} (and
-    \eqn{r < s + 1/2} if \eqn{s} is not an integer). Above it \code{h = NA}
+    \eqn{r < s + 1/2} if \eqn{s} is not an integer, and \eqn{2r \le st}{2r <= st}
+    if \eqn{s} and \eqn{t} are integers). Above it \code{h = NA}
     is returned with a warning. See \code{\link{kedd-package}}, section
     \sQuote{Maximum derivative order}.}
   \item{kernel}{character string giving the kernel; one of
@@ -37,7 +38,7 @@ h.ucv(x, deriv.order = 0L, kernel = "gaussian",
 }
 \details{
   Rudemo (1982) and Bowman (1984) proposed unbiased (least-squares)
-  cross-validation (UCV) for kernel density estimation.  Wolfgang,
+  cross-validation (UCV) for kernel density estimation.  Härdle,
   Marron and Wand (1990) extended the criterion to the r'th derivative
   estimator.  The bandwidth \eqn{\hat{h}_{UCV}^{(r)}}{h_UCV(r)} minimises:
   \deqn{UCV(h;r) = \frac{R\left(K^{(r)}\right)}{nh^{2r+1}} +
@@ -90,7 +91,7 @@ h.ucv(x, deriv.order = 0L, kernel = "gaussian",
   \emph{Kernel Smoothing}.
   Chapman and Hall, London.
 
-  Wolfgang, H., Marron, J. S. and Wand, M. P. (1990).
+  Härdle, W., Marron, J. S. and Wand, M. P. (1990).
   Bandwidth choice for density derivatives.
   \emph{Journal of the Royal Statistical Society, Series B}, 223--232.
 }
