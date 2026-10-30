@@ -52,16 +52,18 @@ functions. Logistic derivatives are available up to order 20.
 
 | Function | Method | Derivative order r | Reference |
 |----------|--------|:---:|-----------|
-| `h.amise` | Asymptotic MISE rule (normal reference) | $r \ge 0$ ¹ | Wand & Jones (1995) |
-| `h.ucv` | Unbiased (least-squares) Cross-Validation | $r \ge 0$ ¹ | Rudemo (1982), Bowman (1984) |
-| `h.bcv` | Biased Cross-Validation (BCV1, BCV2) | $r \ge 0$ ¹ | Scott & Terrell (1987) |
-| `h.ccv` | Complete Cross-Validation | $r \ge 0$ ¹ | Jones & Kappenman (1991) |
-| `h.mcv` | Modified Cross-Validation | $r \ge 0$ ¹ | Stute (1992) |
-| `h.tcv` | Trimmed Cross-Validation | $r \ge 0$ ¹ | Feluch & Koronacki (1992) |
-| `h.scv` | Smoothed Cross-Validation (Gaussian kernel) | any | Hall, Marron & Park (1992) |
-| `h.mlcv` | Maximum-Likelihood Cross-Validation | 0 | Habbema et al. (1974), Duin (1976) |
+| `h.amise` | Asymptotic MISE rule (normal reference) | 0, 1, 2, … (max: see below) | Wand & Jones (1995) |
+| `h.ucv` | Unbiased (least-squares) Cross-Validation | 0, 1, 2, … (max: see below) | Rudemo (1982), Bowman (1984) |
+| `h.bcv` | Biased Cross-Validation (BCV1, BCV2) | 0, 1, 2, … (max: see below) | Scott & Terrell (1987) |
+| `h.ccv` | Complete Cross-Validation | 0, 1, 2, … (max: see below) | Jones & Kappenman (1991) |
+| `h.mcv` | Modified Cross-Validation | 0, 1, 2, … (max: see below) | Stute (1992) |
+| `h.tcv` | Trimmed Cross-Validation | 0, 1, 2, … (max: see below) | Feluch & Koronacki (1992) |
+| `h.scv` | Smoothed Cross-Validation (Gaussian kernel) | 0, 1, 2, … (no limit) | Hall, Marron & Park (1992) |
+| `h.mlcv` | Maximum-Likelihood Cross-Validation | 0 only | Habbema et al. (1974), Duin (1976) |
 
-¹ up to the maximum order of the kernel, see the next table.
+With the Gaussian, cosine and Silverman kernels every order r is allowed; with
+the other kernels r is limited, as given in the table
+[Maximum derivative order r](#maximum-derivative-order-r) below.
 
 All selectors return an S4 object of class `bandwidth`; the search interval is
 `[0.01 * hos, 2 * hos]` by default, `hos` being the over-smoothing bandwidth.
