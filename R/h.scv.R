@@ -28,7 +28,7 @@ h.scv <- function(x, g = NULL, deriv.order = 0L, kernel = "gaussian",
                   lower, upper, tol, nthreads = 0L) {
   v <- .check_bw_args(x, deriv.order, kernel, nthreads)
   if (v$bad) {
-    warning("kernel is identically 0 for this derivative order.")
+    warning("deriv.order is above the maximum order for this kernel; h = NA.")
     return(new("bandwidth", data = v$x, kernel = v$kernel,
                deriv.order = v$r, h = NA_real_, min.obj = NA_real_,
                hos = NA_real_, method = "SCV"))
