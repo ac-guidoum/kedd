@@ -46,7 +46,8 @@ kernel.pow(s = 2, t = 2)
   \eqn{r = \min(st, 16)}{r = min(st, 16)} when \eqn{s} and \eqn{t} are
   integers (16 otherwise) in \code{\link{kernel.fun}},
   \code{\link{kernel.conv}} and \code{\link{dkde}}. With \eqn{r^*}{r*} the
-  largest integer \eqn{r < t + 1/2} (and \eqn{r < s + 1/2} for a non-integer
+  largest integer \eqn{r < t + 1/2} (with \eqn{2r \le st}{2r <= st} for integer
+  \eqn{s} and \eqn{t}, and \eqn{r < s + 1/2} for a non-integer
   \eqn{s}), the maximum is \eqn{\min(r^*, 6)}{min(r*, 6)} for
   \code{\link{h.ucv}}, \code{\link{h.bcv}}, \code{\link{h.tcv}} and
   \code{\link{h.amise}}, \eqn{\min(r^*-1, 6)}{min(r*-1, 6)} for
