@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+src/*.o
+src/*.so
+src/*.dll
+*.Rcheck/
+kedd_*.tar.gz
+inst/doc
+tests/testthat/_snaps
