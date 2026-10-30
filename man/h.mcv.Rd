@@ -12,7 +12,13 @@ h.mcv(x, deriv.order = 0L, kernel = "gaussian",
 }
 \arguments{
   \item{x}{numeric vector of data values.}
-  \item{deriv.order}{non-negative integer: derivative order \eqn{r}.}
+  \item{deriv.order}{non-negative integer: derivative order \eqn{r}. MCV uses
+    \eqn{K^{(r+1)}}, so the maximum \eqn{r} is: any for gaussian, cosine and
+    silverman; logistic 8; epanechnikov 0; biweight 1; triweight 2;
+    tricube 3; \code{pow(s,t)} \eqn{\min(r^*-1, 6)}{min(r*-1, 6)} (see
+    \code{\link{h.ucv}} for \eqn{r^*}{r*}); not available for uniform and
+    triangular. Above it \code{h = NA} is returned with a warning. See
+    \code{\link{kedd-package}}, section \sQuote{Maximum derivative order}.}
   \item{kernel}{character string giving the kernel; one of
     \code{"gaussian"} (default), \code{"epanechnikov"}, \code{"uniform"},
     \code{"triangular"}, \code{"biweight"}, \code{"triweight"},
