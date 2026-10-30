@@ -14,7 +14,7 @@ h.ccv(x, deriv.order = 0L, kernel = "gaussian",
   \item{x}{numeric vector of data values.}
   \item{deriv.order}{non-negative integer: derivative order \eqn{r}. CCV uses
     \eqn{K^{(r+2)}}, so the maximum \eqn{r} is: any for gaussian, cosine and
-    silverman; logistic 8; biweight 0; triweight 1; tricube 2;
+    silverman; logistic 8; biweight 0; triweight 1; tricube 1;
     \code{pow(s,t)} \eqn{\min(r^*-2, 6)}{min(r*-2, 6)} (see \code{\link{h.ucv}}
     for \eqn{r^*}{r*}); not available for uniform, triangular and
     epanechnikov. Above it \code{h = NA} is returned with a warning. See
