@@ -44,10 +44,13 @@ kernel.pow <- function(s = 2, t = 2) {
   as.numeric(strsplit(sub("^pow\\((.*)\\)$", "\\1", kernel), ",")[[1L]])
 }
 
-## TRUE when R(K^(r)) is infinite or K^(r) vanishes for the power family
+## TRUE when R(K^(r)) is infinite or K^(2r) vanishes for the power family
+## (for integer s, t, K is a polynomial of degree st in |x|, as the named kernels)
 .pow_bad <- function(kernel, r) {
-  st <- .pow_params(kernel)
-  (2 * r >= 2 * st[2L] + 1) || (st[1L] != round(st[1L]) && 2 * r >= 2 * st[1L] + 1)
+  st  <- .pow_params(kernel)
+  int <- all(st == round(st))
+  (2 * r >= 2 * st[2L] + 1) || (st[1L] != round(st[1L]) && 2 * r >= 2 * st[1L] + 1) ||
+    (int && 2 * r > st[1L] * st[2L])
 }
 
 ## OpenMP threads: 0 = all processors (capped by OMP_THREAD_LIMIT), k > 0 = k threads.
@@ -82,7 +85,7 @@ kernel.pow <- function(s = 2, t = 2) {
          (kernel == "epanechnikov" && (2L * r) >= 3L) ||
          (kernel == "biweight"     && (2L * r) >= 5L) ||
          (kernel == "triweight"    && (2L * r) >= 7L) ||
-         (kernel == "tricube"      && (2L * r) >= 10L) ||
+         (kernel == "tricube"      && (2L * r) >= 7L) ||
          (kernel == "logistic"     && 2L * r + 4L > 20L) ||
          (startsWith(kernel, "pow(") && (2L * r + 4L > 16L || .pow_bad(kernel, r)))
   list(x = x, r = r, n = n, kernel = kernel,
