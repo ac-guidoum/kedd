@@ -1,6 +1,7 @@
 ##' Asymptotic MISE (AMISE) bandwidth selector
 ##'
-##' Uses the Silverman rule-of-thumb based on the normal reference density.
+##' Reference bandwidth h_os: AMISE-optimal bandwidth with R(f^(r+2)) replaced by
+##' the maximal smoothing value of Terrell (1990).
 ##'
 ##' @param x       numeric vector
 ##' @param deriv.order  derivative order r
@@ -10,12 +11,12 @@
 h.amise <- function(x, deriv.order = 0L, kernel = "gaussian") {
   v <- .check_bw_args(x, deriv.order, kernel, nthreads = 0L)
   if (v$bad) {
-    warning("kernel is identically 0 for this derivative order.")
+    warning("deriv.order is above the maximum order for this kernel; h = NA.")
     return(new("bandwidth", data = v$x, kernel = v$kernel,
                deriv.order = v$r, h = NA_real_, min.obj = NA_real_,
                hos = NA_real_, method = "AMISE"))
   }
-  ## AMISE-optimal h under normality assumption (Silverman 1986, p. 87)
+  ## maximal smoothing bandwidth h_os (Terrell 1990), extended to order r
   sigma <- sd(v$x)
   n     <- v$n
   r     <- v$r
