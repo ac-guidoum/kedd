@@ -13,7 +13,13 @@ kernel.fun(x = NULL, deriv.order = 0L, kernel = "gaussian", n.grid = 512L)
     uniform grid of \code{n.grid} points over \eqn{[-8, 8]} (Gaussian,
     Silverman, logistic) or \eqn{[-1.1, 1.1]} (compact-support kernels)
     is used.}
-  \item{deriv.order}{non-negative integer: derivative order \eqn{r \ge 0}.}
+  \item{deriv.order}{non-negative integer: derivative order \eqn{r \ge 0}.
+    Maximum \eqn{r} with \eqn{K^{(r)} \ne 0}: any for gaussian, cosine and
+    silverman; logistic 20; epanechnikov 2; uniform 0; triangular 1;
+    biweight 4; triweight 6; tricube 9; \code{pow(s,t)} \eqn{\min(st, 16)}{min(st, 16)}
+    (16 if \eqn{s} or \eqn{t} is not an integer). Above it, zero is returned
+    (with a warning for logistic and pow). See
+    \code{\link{kedd-package}}, section \sQuote{Maximum derivative order}.}
   \item{kernel}{character string giving the kernel; one of
     \code{"gaussian"} (default), \code{"epanechnikov"}, \code{"uniform"},
     \code{"triangular"}, \code{"biweight"}, \code{"triweight"},
