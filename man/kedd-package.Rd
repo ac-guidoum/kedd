@@ -23,6 +23,9 @@
   \eqn{K(x)=c_{s,t}(1-|x|^s)^t\mathbf{1}_{|x|\le 1}} (see
   \code{\link{kernel.pow}}).
 
+  \bold{Maximum derivative order} \eqn{r} for each kernel (see the section
+  below).
+
   \bold{Bandwidth selectors} (S4 class \code{\linkS4class{bandwidth}}):
   \tabular{ll}{
     \code{\link{h.amise}} \tab asymptotic MISE (normal reference) \cr
@@ -59,6 +62,35 @@
   \bold{Documentation}: a worked introduction is given in
   \code{vignette("kedd", package = "kedd")}, and demonstrations in
   \code{demo("kedd")}, \code{demo("kernels")} and \code{demo("bandwidths")}.
+}
+\section{Maximum derivative order}{
+  Highest derivative order \eqn{r} (\code{deriv.order}) for each kernel.
+  Column 2: \eqn{K^{(r)}} is not identically zero (\code{\link{kernel.fun}},
+  \code{\link{kernel.conv}}, \code{\link{dkde}}); above it these functions
+  return zero. Columns 3 to 5: the selector criterion is finite; above it the
+  selectors return \code{h = NA} with a warning. "any" means no limit and "--"
+  means not available, even at \eqn{r = 0}.
+  \tabular{lcccc}{
+    \bold{kernel} \tab \bold{kernel.fun, kernel.conv, dkde} \tab \bold{UCV, BCV, TCV, AMISE} \tab \bold{MCV} \tab \bold{CCV} \cr
+    \code{gaussian}     \tab any \tab any \tab any \tab any \cr
+    \code{cosine}       \tab any \tab any \tab any \tab any \cr
+    \code{silverman}    \tab any \tab any \tab any \tab any \cr
+    \code{logistic}     \tab 20  \tab 8   \tab 8   \tab 8   \cr
+    \code{epanechnikov} \tab 2   \tab 1   \tab 0   \tab --  \cr
+    \code{uniform}      \tab 0   \tab 0   \tab --  \tab --  \cr
+    \code{triangular}   \tab 1   \tab 0   \tab --  \tab --  \cr
+    \code{biweight}     \tab 4   \tab 2   \tab 1   \tab 0   \cr
+    \code{triweight}    \tab 6   \tab 3   \tab 2   \tab 1   \cr
+    \code{tricube}      \tab 9   \tab 4   \tab 3   \tab 2   \cr
+    \code{pow(s,t)}     \tab \eqn{\min(st, 16)}{min(st, 16)} \tab \eqn{\min(r^*, 6)}{min(r*, 6)} \tab \eqn{\min(r^*-1, 6)}{min(r*-1, 6)} \tab \eqn{\min(r^*-2, 6)}{min(r*-2, 6)} \cr
+  }
+  For \code{pow(s,t)}, \eqn{st} applies when \eqn{s} and \eqn{t} are integers
+  (16 otherwise), and \eqn{r^*}{r*} is the largest integer
+  \eqn{r < t + 1/2} (and \eqn{r < s + 1/2} when \eqn{s} is not an integer).
+  For example \code{pow(2,3)}: 6, 3, 2, 1; \code{pow(2,8)}: 16, 6, 6, 6;
+  \code{pow(1.5,2.5)}: 16, 1, 0, --.
+  \code{\link{h.scv}} (Gaussian kernel) has no limit and \code{\link{h.mlcv}}
+  is for \eqn{r = 0} only.
 }
 \author{
   Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz} (maintainer),
