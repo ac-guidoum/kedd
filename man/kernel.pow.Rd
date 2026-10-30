@@ -41,6 +41,18 @@ kernel.pow(s = 2, t = 2)
   \eqn{s}, \eqn{2r < 2s+1} (otherwise \eqn{K^{(r)}} is not square integrable
   at \eqn{|x| = 1} or at \eqn{0}).  Bandwidth selectors return \code{NA} with a
   warning for such derivative orders, as for the other finite-support kernels.
+
+  \bold{Maximum derivative order.} \eqn{K^{(r)} \ne 0} up to
+  \eqn{r = \min(st, 16)}{r = min(st, 16)} when \eqn{s} and \eqn{t} are
+  integers (16 otherwise) in \code{\link{kernel.fun}},
+  \code{\link{kernel.conv}} and \code{\link{dkde}}. With \eqn{r^*}{r*} the
+  largest integer \eqn{r < t + 1/2} (and \eqn{r < s + 1/2} for a non-integer
+  \eqn{s}), the maximum is \eqn{\min(r^*, 6)}{min(r*, 6)} for
+  \code{\link{h.ucv}}, \code{\link{h.bcv}}, \code{\link{h.tcv}} and
+  \code{\link{h.amise}}, \eqn{\min(r^*-1, 6)}{min(r*-1, 6)} for
+  \code{\link{h.mcv}} and \eqn{\min(r^*-2, 6)}{min(r*-2, 6)} for
+  \code{\link{h.ccv}}. For example \code{pow(2,3)}: 6, 3, 2, 1;
+  \code{pow(2,8)}: 16, 6, 6, 6; \code{pow(1.5,2.5)}: 16, 1, 0, not available.
 }
 \value{
   A character string \code{"pow(s,t)"}.
