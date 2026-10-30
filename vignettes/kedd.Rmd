@@ -85,11 +85,11 @@ return `h = NA` with a warning; "—" means not available even at $r = 0$:
 | `triangular` | 0 | — | — |
 | `biweight` | 2 | 1 | 0 |
 | `triweight` | 3 | 2 | 1 |
-| `tricube` | 4 | 3 | 2 |
+| `tricube` | 3 | 2 | 1 |
 | `pow(s,t)` | $\min(r^\ast, 6)$ | $\min(r^\ast-1, 6)$ | $\min(r^\ast-2, 6)$ |
 
-Here $r^\ast$ is the largest integer $r < t + \frac12$ (and $r < s + \frac12$
-when $s$ is not an integer); e.g. `pow(2,3)`: 3, 2, 1. `h.scv` (Gaussian
+Here $r^\ast$ is the largest integer $r < t + \frac12$ (with $2r \le st$ when $s$
+and $t$ are integers, and $r < s + \frac12$ when $s$ is not an integer); e.g. `pow(2,3)`: 3, 2, 1. `h.scv` (Gaussian
 kernel) has no limit and `h.mlcv` is for $r = 0$ only.
 
 `kernel.fun()` evaluates $K^{(r)}$ on a grid (or at given points) and returns an
@@ -280,7 +280,7 @@ c(MLCV = h.mlcv(x)@h)   # density only
 Two well-known behaviours show up in such comparisons:
 
 * **UCV** is unbiased but highly variable, and tends to undersmooth, all the more
-  as $r$ grows (Wolfgang, Marron and Wand, 1990); its selected bandwidth may even
+  as $r$ grows (Härdle, Marron and Wand, 1990); its selected bandwidth may even
   decrease with $r$ on a given sample.
 * **BCV, CCV and MCV** are much more stable but biased towards large bandwidths. On
   multimodal samples, especially for $r \ge 1$, their criterion can be decreasing
@@ -400,5 +400,5 @@ all.equal(h_seq, h_par)
 * Stute, W. (1992). Modified cross-validation in density estimation. *Journal of
   Statistical Planning and Inference*, 30, 293–305.
 * Wand, M. P. and Jones, M. C. (1995). *Kernel Smoothing*. Chapman & Hall.
-* Wolfgang, H., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for density
+* Härdle, W., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for density
   derivatives. *JRSS B*, 52, 223–232.
