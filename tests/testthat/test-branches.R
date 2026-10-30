@@ -53,7 +53,7 @@ test_that("ordres non admissibles : NA + avertissement pour chaque selecteur", {
     expect_warning(bw <- f(xb, deriv.order = 1L, kernel = "uniform"))
     expect_true(is.na(bw@h))
   }
-  expect_warning(bw <- h.scv(xb, deriv.order = 1L, kernel = "uniform"), "identically 0")
+  expect_warning(bw <- h.scv(xb, deriv.order = 1L, kernel = "uniform"), "maximum order")
   expect_true(is.na(bw@h))
   expect_warning(bw <- h.ccv(xb, kernel = "epanechnikov"), "CCV")
   expect_warning(bw <- h.mcv(xb, deriv.order = 1L, kernel = "epanechnikov"), "MCV")
