@@ -23,16 +23,6 @@ Version 2.0.0: 2026-10-30    o Version 2.0.0 released.
                                changes the threads of later calls; h.ucv()
                                with 0 used a single thread. dkde() and h.mlcv()
                                now use nthreads. New Cpp_omp_threads().
-                             o The five Marron & Wand (1992) samples kurtotic,
-                               outlier, bimodal, trimodal and claw are now
-                               documented (?"kedd-data"), lazily loaded and used
-                               in examples, vignette and demos.
-                             o GitHub repository https://github.com/ac-guidoum/kedd
-                               (URL, BugReports, R-CMD-check workflow), CITATION
-                               file, cheatsheet.
-                             o plot() and lines() on a bandwidth object evaluate
-                               the criterion at n.points = 100 bandwidths by
-                               default (was 200): twice as fast.
                              o Added second author: Amel Henider.
 Version 1.0.4: 2026-01-27    o Version 1.0.4 released.
                              o Other minor bug fixes: R (>= 4.3.2).
