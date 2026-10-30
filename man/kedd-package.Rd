@@ -81,12 +81,13 @@
     \code{triangular}   \tab 1   \tab 0   \tab --  \tab --  \cr
     \code{biweight}     \tab 4   \tab 2   \tab 1   \tab 0   \cr
     \code{triweight}    \tab 6   \tab 3   \tab 2   \tab 1   \cr
-    \code{tricube}      \tab 9   \tab 4   \tab 3   \tab 2   \cr
+    \code{tricube}      \tab 9   \tab 3   \tab 2   \tab 1   \cr
     \code{pow(s,t)}     \tab \eqn{\min(st, 16)}{min(st, 16)} \tab \eqn{\min(r^*, 6)}{min(r*, 6)} \tab \eqn{\min(r^*-1, 6)}{min(r*-1, 6)} \tab \eqn{\min(r^*-2, 6)}{min(r*-2, 6)} \cr
   }
   For \code{pow(s,t)}, \eqn{st} applies when \eqn{s} and \eqn{t} are integers
   (16 otherwise), and \eqn{r^*}{r*} is the largest integer
-  \eqn{r < t + 1/2} (and \eqn{r < s + 1/2} when \eqn{s} is not an integer).
+  \eqn{r < t + 1/2}, with \eqn{2r \le st}{2r <= st} when \eqn{s} and \eqn{t}
+  are integers and \eqn{r < s + 1/2} when \eqn{s} is not an integer.
   For example \code{pow(2,3)}: 6, 3, 2, 1; \code{pow(2,8)}: 16, 6, 6, 6;
   \code{pow(1.5,2.5)}: 16, 1, 0, --.
   \code{\link{h.scv}} (Gaussian kernel) has no limit and \code{\link{h.mlcv}}
