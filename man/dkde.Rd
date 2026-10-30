@@ -99,7 +99,7 @@ dkde(x = NULL, data, h, deriv.order = 0L,
   \emph{Kernel Smoothing}.
   Chapman and Hall, London.
 
-  Wolfgang, H. (1991).
+  Härdle, W. (1991).
   \emph{Smoothing Techniques, With Implementation in S}.
   Springer-Verlag, New York.
 }
