@@ -1,8 +1,8 @@
 # kedd — Kernel Estimator and Bandwidth Selection for Density and Its Derivatives <img src="man/figures/logo.png" align="right" height="139" alt="kedd logo" />
 
+[![CRAN version](https://www.r-pkg.org/badges/version/kedd)](https://cran.r-project.org/package=kedd)
 [![CRAN status](https://badges.cranchecks.info/summary/kedd.svg)](https://cran.r-project.org/web/checks/check_results_kedd.html)
-[![R-CMD-check](https://github.com/acguidoum/kedd/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/acguidoum/kedd/actions)
-[![codecov](https://codecov.io/gh/acguidoum/kedd/branch/main/graph/badge.svg)](https://codecov.io/gh/acguidoum/kedd)
+[![R-CMD-check](https://github.com/ac-guidoum/kedd/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ac-guidoum/kedd/actions/workflows/R-CMD-check.yaml)
 [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/kedd)](https://cran.r-project.org/package=kedd)
 [![Monthly downloads](https://cranlogs.r-pkg.org/badges/kedd)](https://cran.r-project.org/package=kedd)
 [![Weekly downloads](https://cranlogs.r-pkg.org/badges/last-week/kedd)](https://cran.r-project.org/package=kedd)
@@ -23,16 +23,18 @@ with ggplot2 graphics; the $O(n^2)$ criteria run in C++ (Rcpp) with OpenMP.
 | Kernel | Formula | Support |
 |--------|---------|---------|
 | Gaussian | $K(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$ | $(-\infty, +\infty)$ |
-| Epanechnikov | $K(x) = \frac{3}{4}(1-x^2)\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Uniform | $K(x) = \frac{1}{2}\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Triangular | $K(x) = (1-|x|)\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Biweight | $K(x) = \frac{15}{16}(1-x^2)^2\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Triweight | $K(x) = \frac{35}{32}(1-x^2)^3\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Tricube | $K(x) = \frac{70}{81}(1-|x|^3)^3\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Cosine | $K(x) = \frac{\pi}{4}\cos\!\bigl(\frac{\pi x}{2}\bigr)\mathbf{1}_{|x|\le 1}$ | $[-1, 1]$ |
-| Silverman | $K(x) = \frac{1}{2}e^{-|x|/\sqrt{2}}\sin\!\bigl(\frac{|x|}{\sqrt{2}}+\frac{\pi}{4}\bigr)$ | $(-\infty, +\infty)$ |
+| Epanechnikov | $K(x) = \frac{3}{4}(1-x^2)$ | $[-1, 1]$ |
+| Uniform | $K(x) = \frac{1}{2}$ | $[-1, 1]$ |
+| Triangular | $K(x) = 1-\lvert x\rvert$ | $[-1, 1]$ |
+| Biweight | $K(x) = \frac{15}{16}(1-x^2)^2$ | $[-1, 1]$ |
+| Triweight | $K(x) = \frac{35}{32}(1-x^2)^3$ | $[-1, 1]$ |
+| Tricube | $K(x) = \frac{70}{81}(1-\lvert x\rvert^3)^3$ | $[-1, 1]$ |
+| Cosine | $K(x) = \frac{\pi}{4}\cos\left(\frac{\pi x}{2}\right)$ | $[-1, 1]$ |
+| Silverman | $K(x) = \frac{1}{2}e^{-\lvert x\rvert/\sqrt{2}}\sin\left(\frac{\lvert x\rvert}{\sqrt{2}}+\frac{\pi}{4}\right)$ | $(-\infty, +\infty)$ |
 | Logistic | $K(x) = \frac{e^{-x}}{(1+e^{-x})^2} = \frac{1}{4}\mathrm{sech}^2(x/2)$ | $(-\infty, +\infty)$ |
-| Pow(s,t) | $K(x) = c_{s,t}(1-\lvert x\rvert^s)^t\mathbf{1}_{\lvert x\rvert\le 1}$, $c_{s,t} = \frac{s}{2B(1/s,\,t+1)}$ | $[-1, 1]$ |
+| Pow(s,t) | $K(x) = c_{s,t}(1-\lvert x\rvert^s)^t$, $c_{s,t} = \frac{s}{2B(1/s,\,t+1)}$ | $[-1, 1]$ |
+
+Kernels with support $[-1, 1]$ are zero outside it.
 
 The power family is passed as `kernel = "pow(s,t)"` (or `kernel.pow(s, t)`)
 and contains uniform `pow(s,0)`, triangular `pow(1,1)`, Epanechnikov `pow(2,1)`,
@@ -69,6 +71,10 @@ All selectors return an S4 object of class `bandwidth`; the search interval is
 ## Installation
 
 ```r
+# Development version 2.0.0 from GitHub
+# install.packages("remotes")
+remotes::install_github("ac-guidoum/kedd", build_vignettes = TRUE)
+
 # Version 2.0.0 from the source tarball
 install.packages("kedd_2.0.0.tar.gz", repos = NULL, type = "source")
 
@@ -115,6 +121,24 @@ p <- plot(h.ucv(x))
 p$plot + lines(h.bcv(x))
 ```
 
+## Datasets
+
+Five samples of size 200 from the Marron & Wand (1992) normal mixtures, with
+known true densities (see `?"kedd-data"`):
+
+| Dataset | Marron & Wand density |
+|---|---|
+| `kurtotic` | #4 kurtotic unimodal: $\frac23 N(0,1) + \frac13 N(0, 0.1^2)$ |
+| `outlier` | #5 outlier: $\frac1{10} N(0,1) + \frac9{10} N(0, 0.1^2)$ |
+| `bimodal` | #7 separated bimodal: $\frac12 N(-1.5, 0.5^2) + \frac12 N(1.5, 0.5^2)$ |
+| `trimodal` | #9 trimodal: $\frac9{20} N(-1.2, 0.6^2) + \frac9{20} N(1.2, 0.6^2) + \frac1{10} N(0, 0.25^2)$ |
+| `claw` | #10 claw: $\frac12 N(0,1) + \sum_{l=0}^{4}\frac1{10} N(l/2-1, 0.1^2)$ |
+
+```r
+h.mcv(claw)
+plot(dkde(data = bimodal, h = h.ucv(bimodal, deriv.order = 1)@h, deriv.order = 1))
+```
+
 ## Cheatsheet
 
 A two-page summary of the package is available in
@@ -133,15 +157,17 @@ demo("bandwidths", package = "kedd") # all selectors compared on a bimodal sampl
 
 ## Tests
 
-The `testthat` suite (≈900 expectations, 99.5 % line coverage with `covr`)
-covers every selector × kernel, the ggplot2 methods and input validation. It
+The `testthat` suite (≈1,460 expectations) covers every selector × kernel, the
+`nthreads` behaviour, the content of every ggplot2 figure (`plot()`, `lines()`),
+the datasets and input validation. It
 checks every kernel constant ($\mu_2$, $\mu_4$, $R(K^{(r)})$), convolution and
 derivative, for every kernel and every implemented order, against numerical
 integration, and checks Pow(s,t) against the named kernels it generalises
 (identical kernels, convolutions and bandwidths).
 
 ```r
-covr::package_coverage("path/to/kedd_2.0.0")
+covr::package_coverage("path/to/kedd_2.0.0")   # line coverage
+source("data-raw/benchmark.R")                 # execution time of every function
 ```
 
 ## Downloads
@@ -187,7 +213,10 @@ The figure and the numbers are regenerated with `source("data-raw/downloads.R")`
 | **Arsalane Chouaib Guidoum** | author, maintainer | <acguidoum@univ-tam.dz> · ORCID [0000-0003-3781-2160](https://orcid.org/0000-0003-3781-2160) |
 | **Amel Henider** | contributor | <amel.henider@univ-tam.dz> |
 
-To cite the package:
+Source code: <https://github.com/ac-guidoum/kedd> · bug reports and
+suggestions: <https://github.com/ac-guidoum/kedd/issues>.
+
+To cite the package (`citation("kedd")`):
 
 > Guidoum, A. C. (2020). Kernel estimator and bandwidth selection for density
 > and its derivatives: the kedd package. arXiv:2012.06102.
@@ -211,6 +240,8 @@ To cite the package:
   *Probability Theory and Related Fields*, **92**, 1–20.
 - Jones, M. C. and Kappenman, R. F. (1991). On a class of kernel density estimate
   bandwidth selectors. *Scandinavian Journal of Statistics*, **19**, 337–349.
+- Marron, J. S. and Wand, M. P. (1992). Exact mean integrated squared error.
+  *The Annals of Statistics*, **20**, 712–736.
 - Rudemo, M. (1982). Empirical choice of histograms and kernel density
   estimators. *Scandinavian Journal of Statistics*, **9**, 65–78.
 - Scott, D. W. and Terrell, G. R. (1987). Biased and unbiased cross-validation
@@ -221,3 +252,4 @@ To cite the package:
 - Wolfgang, H., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for
   density derivatives. *Journal of the Royal Statistical Society B*, **52**,
   223–232.
+

@@ -1,0 +1,39 @@
+Package: kedd
+Type: Package
+Title: Kernel Estimator and Bandwidth Selection for Density and Its Derivatives
+Version: 2.0.0
+Date: 2026-10-30
+Authors@R: c(
+    person("Arsalane Chouaib", "Guidoum",
+           email   = "acguidoum@univ-tam.dz",
+           role    = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3781-2160")),
+    person("Amel", "Henider",
+           email   = "amel.henider@univ-tam.dz",
+           role    = "ctb"))
+Maintainer: Arsalane Chouaib Guidoum <acguidoum@univ-tam.dz>
+Description: Kernel estimation of a univariate probability density and of its
+    derivatives of any order r, with data-driven bandwidth selection. Provides the
+    kernel estimator of the r-th derivative, the kernels, their derivatives and
+    convolutions, and eight bandwidth selectors: the asymptotic MISE rule (AMISE),
+    and unbiased (UCV), biased (BCV1, BCV2), complete (CCV), modified (MCV),
+    trimmed (TCV), smoothed (SCV) and maximum-likelihood (MLCV) cross-validation.
+    Supports ten named kernels (gaussian, epanechnikov, uniform, triangular,
+    biweight, triweight, tricube, cosine, silverman, logistic) and the power
+    family Pow(s,t), c(1-|x|^s)^t on [-1,1]. Results are S4 objects with 'ggplot2'
+    graphics; the O(n^2) criteria are computed in C++ ('Rcpp') with 'OpenMP'
+    parallelism. Includes five example samples from Marron and Wand (1992)
+    normal mixtures, a vignette and demos. Companion to Guidoum (2020)
+    <doi:10.48550/arXiv.2012.06102>.
+License: GPL (>= 2)
+URL: https://github.com/ac-guidoum/kedd, https://arxiv.org/abs/2012.06102
+BugReports: https://github.com/ac-guidoum/kedd/issues
+Depends: R (>= 3.5.0)
+Imports: Rcpp (>= 1.0.0), methods, stats, graphics, ggplot2 (>= 3.4.0), tools, utils
+LinkingTo: Rcpp
+Suggests: knitr, rmarkdown, testthat, covr
+VignetteBuilder: knitr
+NeedsCompilation: yes
+LazyData: true
+Encoding: UTF-8
+Config/roxygen2/version: 8.1.1

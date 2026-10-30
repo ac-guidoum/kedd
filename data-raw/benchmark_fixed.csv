@@ -1,0 +1,18 @@
+"fun","ms"
+"kernel.pow(2, 3)",0.100000000000051
+"kernel.fun(kernel = ""gaussian"")",0.549999999999997
+"kernel.fun(kernel = ""pow(1.5,2.5)"", deriv.order = 2)",0.700000000000003
+"kernel.conv(kernel = ""gaussian"")",0.449999999999946
+"kernel.conv(kernel = ""logistic"")",0.450000000000017
+"kernel.conv(kernel = ""pow(2,3)"")",0.700000000000003
+"plot(<kfun>)",185.000000000002
+"plot(<kconv>)",230.000000000004
+"plot(<dkde>)  (n = 500)",204.999999999998
+"show(<bandwidth>)",0.300000000000011
+"Cpp_kernel_deriv(""gaussian"", u, 2)  (1e5 points)",2.03947368421054
+"Cpp_kernel_conv(""biweight"", u, 1)  (1e5 points)",1.92546583850924
+"Cpp_kernel_constants(""pow(2,3)"", 2)",0
+"Cpp_hos(""tricube"", 1, 500)",0
+"Cpp_plot_cv(""CCV"", 200 h, n = 500)",1730
+"Cpp_conv2conv(0, 0, 0, gaussian)  (1 point)",3.60465116279072
+"Cpp_omp_threads()",0.249999999999986

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kedd cheatsheet</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  :root {
+    --navy: #14213D; --gold: #E9A23B; --teal: #1FA89C; --teal-l: #E3F6F4;
+    --coral: #E85D5D; --ink: #1d2433; --muted: #5b6577; --code-bg: #F3F5F8; --rule: #d9dee6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; color: var(--ink);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-size: 7.7pt; line-height: 1.28; }
+  .page { width: 297mm; height: 210mm; padding: 6mm 8mm 5mm; overflow: hidden;
+    page-break-after: always; break-after: page; display: flex; flex-direction: column; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  header { display: flex; align-items: center; gap: 5mm; padding-bottom: 2mm;
+    border-bottom: 2.2px solid var(--gold); margin-bottom: 2.6mm; }
+  header img { height: 19mm; }
+  header h1 { margin: 0; font-size: 21pt; color: var(--navy); letter-spacing: .2px; }
+  header h1 span { color: var(--gold); font-weight: 600; }
+  header .tag { color: var(--muted); font-size: 9.3pt; margin-top: 1mm; }
+  header .right { margin-left: auto; text-align: right; font-size: 7.6pt; color: var(--muted); }
+  header .right b { color: var(--navy); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; flex: 1; min-height: 0; }
+  .col { display: flex; flex-direction: column; gap: 2.4mm; min-width: 0; }
+  section { border: 1px solid var(--rule); border-radius: 2.5mm; overflow: hidden; }
+  section h2 { margin: 0; background: var(--navy); color: #fff; font-size: 9.6pt;
+    padding: 1.4mm 3mm; letter-spacing: .3px; }
+  section h2 small { color: var(--gold); font-weight: 600; font-size: 8pt; margin-left: 2mm; }
+  section .b { padding: 1.6mm 2.8mm 1.7mm; }
+  section.teal h2 { background: var(--teal); }
+  section.gold h2 { background: var(--gold); color: var(--navy); }
+  section.gold h2 small { color: var(--navy); }
+  p { margin: 0 0 1.4mm; }
+  code, pre { font-family: "Cascadia Mono", Consolas, "Courier New", monospace; font-size: 7.1pt; }
+  code { background: var(--code-bg); padding: 0 .9mm; border-radius: 1mm; }
+  pre { background: var(--code-bg); margin: .8mm 0 1.2mm; padding: 1.2mm 2mm;
+    border-left: 2.5px solid var(--teal); border-radius: 1mm; white-space: pre-wrap; }
+  pre .c { color: #7a8494; }
+  pre .k { color: #b5651d; font-weight: 600; }
+  .fn { color: var(--navy); font-weight: 700; font-family: "Cascadia Mono", Consolas, monospace; font-size: 7.8pt; }
+  table { width: 100%; border-collapse: collapse; font-size: 7.6pt; }
+  th, td { text-align: left; padding: .45mm 1.2mm; vertical-align: top; border-bottom: 1px solid #edf0f4; }
+  th { color: var(--navy); font-size: 7.4pt; border-bottom: 1.4px solid var(--rule); }
+  .math { font-family: "Cambria Math", "Cambria", "Times New Roman", serif; font-size: 9.2pt; }
+  .eq { text-align: center; background: var(--teal-l); border-radius: 1.5mm; padding: 1.1mm 1mm; margin: .8mm 0 1.2mm; }
+  .note { color: var(--muted); font-size: 7.4pt; }
+  .pill { display: inline-block; background: var(--teal-l); color: #0e6d64; border-radius: 4mm;
+    padding: 0 1.8mm; margin: 0 .6mm .8mm 0; font-family: Consolas, monospace; font-size: 7.3pt; }
+  .pill.g { background: #FCEFD9; color: #8a5a10; }
+  .flex { display: flex; gap: 2.5mm; align-items: center; }
+  .flex svg { flex: none; }
+  ul { margin: .5mm 0 1.2mm; padding-left: 4mm; }
+  li { margin-bottom: .6mm; }
+  footer { margin-top: 2.2mm; padding-top: 1.6mm; border-top: 1px solid var(--rule);
+    font-size: 7pt; color: var(--muted); display: flex; justify-content: space-between; }
+  .flow { display: flex; align-items: center; justify-content: space-between; gap: 1mm; margin: 1mm 0 1.5mm; }
+  .flow div { flex: 1; text-align: center; background: var(--code-bg); border-radius: 1.5mm; padding: 1.3mm .5mm;
+    font-family: Consolas, monospace; font-size: 7.3pt; color: var(--navy); }
+  .flow span { color: var(--gold); font-weight: 700; }
+  @media screen {
+    body { background: #e9ecf1; }
+    .page { margin: 6mm auto; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== PAGE 1 ============================== -->
+<div class="page">
+  <header>
+    <img src="../man/figures/logo.png" alt="kedd logo">
+    <div>
+      <h1>kedd <span>:: CHEATSHEET</span></h1>
+      <div class="tag">Kernel estimator and bandwidth selection for a density and its derivatives &mdash; S4 classes, ggplot2 graphics, Rcpp/OpenMP</div>
+    </div>
+    <div class="right"><b>kedd 2.0.0</b><br>A. C. Guidoum &amp; A. Henider<br><code>library(kedd)</code></div>
+  </header>
+
+  <div class="cols">
+    <!-- column 1 -->
+    <div class="col">
+      <section>
+        <h2>The estimator</h2>
+        <div class="b">
+          <p>For a sample <span class="math">X<sub>1</sub>,&hellip;,X<sub>n</sub></span> from a density <span class="math">f</span>, the kernel estimator of the <span class="math">r</span>-th derivative is</p>
+          <div class="eq math">f&#770;<sub>h</sub><sup>(r)</sup>(x) = <sup>1</sup>&frasl;<sub>n h<sup>r+1</sup></sub> &sum;<sub>i</sub> K<sup>(r)</sup>((x &minus; X<sub>i</sub>)/h)</div>
+          <div class="eq math">AMISE = R(K<sup>(r)</sup>) / (n h<sup>2r+1</sup>) + &frac14; &mu;<sub>2</sub>(K)<sup>2</sup> h<sup>4</sup> R(f<sup>(r+2)</sup>)</div>
+          <p>so <span class="math">h<sub>opt</sub> &prop; n<sup>&minus;1/(2r+5)</sup></span>: <b>derivatives need larger bandwidths</b> than the density.</p>
+          <p class="note"><span class="math">R(g)=&int;g<sup>2</sup></span>, &nbsp;<span class="math">&mu;<sub>k</sub>(K)=&int;x<sup>k</sup>K(x)dx</span>.</p>
+        </div>
+      </section>
+
+      <section class="teal">
+        <h2>Workflow</h2>
+        <div class="b">
+          <div class="flow"><div>data x</div><span>&rarr;</span><div>h.ucv(x, r)</div><span>&rarr;</span><div>dkde(…, h)</div><span>&rarr;</span><div>plot()</div></div>
+<pre><span class="k">library</span>(kedd)
+x  &lt;- <span class="k">rnorm</span>(300)
+bw &lt;- <span class="k">h.ucv</span>(x, deriv.order = 1)  <span class="c"># select h</span>
+bw; <span class="k">plot</span>(bw)                <span class="c"># show(), CV curve</span>
+f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
+<span class="k">plot</span>(f1)                    <span class="c"># estimate of f'</span></pre>
+          <p class="note">Slots are read with <code>@</code>: <code>bw@h</code>, <code>f1@x</code>, <code>f1@y</code>.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Density &amp; derivatives <small>dkde()</small></h2>
+        <div class="b">
+          <p><span class="fn">dkde</span>(x = NULL, data, h, deriv.order = 0, kernel = "gaussian", nthreads = 0)</p>
+          <ul>
+            <li><code>x</code> evaluation points (default: 512 points on <span class="math">[min &minus; 3h, max + 3h]</span>)</li>
+            <li><code>h</code> missing &rArr; UCV bandwidth <code>h.ucv(data, r, kernel)</code></li>
+            <li>returns class <b>dkde</b>: slots <code>x y h kernel deriv.order n data call</code></li>
+          </ul>
+<pre>d &lt;- <span class="k">dkde</span>(data = x, h = 0.5, kernel = "biweight")
+<span class="k">plot</span>(d, rug = TRUE, band = TRUE, type = "l")</pre>
+        </div>
+      </section>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col">
+      <section>
+        <h2>Kernels <small>kernel = "…"</small></h2>
+        <div class="b">
+          <table>
+            <tr><th>name</th><th>K(x)</th><th>support</th><th>r max</th></tr>
+            <tr><td><code>gaussian</code></td><td class="math">&phi;(x)</td><td>&#8477;</td><td>any</td></tr>
+            <tr><td><code>epanechnikov</code></td><td class="math">&frac34;(1&minus;x&sup2;)</td><td>[&minus;1,1]</td><td>2</td></tr>
+            <tr><td><code>uniform</code></td><td class="math">&frac12;</td><td>[&minus;1,1]</td><td>0</td></tr>
+            <tr><td><code>triangular</code></td><td class="math">1&minus;|x|</td><td>[&minus;1,1]</td><td>1</td></tr>
+            <tr><td><code>biweight</code></td><td class="math">15/16 (1&minus;x&sup2;)&sup2;</td><td>[&minus;1,1]</td><td>4</td></tr>
+            <tr><td><code>triweight</code></td><td class="math">35/32 (1&minus;x&sup2;)&sup3;</td><td>[&minus;1,1]</td><td>6</td></tr>
+            <tr><td><code>tricube</code></td><td class="math">70/81 (1&minus;|x|&sup3;)&sup3;</td><td>[&minus;1,1]</td><td>9</td></tr>
+            <tr><td><code>cosine</code></td><td class="math">&pi;/4 cos(&pi;x/2)</td><td>[&minus;1,1]</td><td>any</td></tr>
+            <tr><td><code>silverman</code></td><td class="math">&frac12;e<sup>&minus;|x|/&radic;2</sup>sin(|x|/&radic;2+&pi;/4)</td><td>&#8477;</td><td>any</td></tr>
+            <tr><td><code>logistic</code></td><td class="math">e<sup>&minus;x</sup>/(1+e<sup>&minus;x</sup>)&sup2;</td><td>&#8477;</td><td>20</td></tr>
+            <tr><td><code>pow(s,t)</code></td><td class="math">c<sub>s,t</sub>(1&minus;|x|<sup>s</sup>)<sup>t</sup></td><td>[&minus;1,1]</td><td>16</td></tr>
+          </table>
+          <p class="note" style="margin-top:1.2mm">Names can be abbreviated (<code>"epa"</code>). "r max": last non-zero derivative. Orders where <span class="math">R(K<sup>(r)</sup>)</span> is not finite give <code>NA</code> + a warning in the selectors.</p>
+        </div>
+      </section>
+
+      <section class="gold">
+        <h2>Power family Pow(s,t) <small>kernel.pow()</small></h2>
+        <div class="b">
+          <div class="eq math">K<sub>s,t</sub>(x) = c<sub>s,t</sub>(1&minus;|x|<sup>s</sup>)<sup>t</sup> 1<sub>|x|&le;1</sub>, &nbsp; c<sub>s,t</sub> = s / (2 B(1/s, t+1))</div>
+<pre><span class="k">kernel.pow</span>(2, 3)            <span class="c"># "pow(2,3)"</span>
+<span class="k">h.ucv</span>(x, kernel = "pow(1.5,2.5)")   <span class="c"># s&gt;0, t&ge;0</span></pre>
+          <p><span class="pill g">pow(s,0) uniform</span><span class="pill g">pow(1,1) triangular</span><span class="pill g">pow(2,1) epanechnikov</span><span class="pill g">pow(2,2) biweight</span><span class="pill g">pow(2,3) triweight</span><span class="pill g">pow(3,3) tricube</span></p>
+          <p class="note">Exact constants: <span class="math">&mu;<sub>k</sub> = B((k+1)/s, t+1)/B(1/s, t+1)</span>; <code>"pow"</code> alone = <code>"pow(2,2)"</code>.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- column 3 -->
+    <div class="col">
+      <section>
+        <h2>Kernel functions <small>kfun</small></h2>
+        <div class="b">
+          <div class="flex">
+            <svg width="62" height="34" viewBox="0 0 62 34" aria-hidden="true">
+              <line x1="2" y1="30" x2="60" y2="30" stroke="#c5ccd6" stroke-width="1"/>
+              <path d="M2 30 C 14 30, 20 4, 31 4 S 48 30, 60 30" fill="none" stroke="#1FA89C" stroke-width="2"/>
+              <path d="M2 30 C 14 30, 18 10, 24 12 S 31 30, 31 30 S 38 50, 44 44 S 52 30, 60 30" fill="none" stroke="#E9A23B" stroke-width="1.6"/>
+            </svg>
+            <p style="margin:0"><span class="fn">kernel.fun</span>(x = NULL, deriv.order = 0, kernel = "gaussian", n.grid = 512) &rarr; <span class="math">K<sup>(r)</sup>(x)</span></p>
+          </div>
+<pre>kf &lt;- <span class="k">kernel.fun</span>(kernel = "biweight", deriv.order = 2)
+<span class="k">plot</span>(kf, type = "o", zero.line = TRUE)</pre>
+          <p class="note">Default grid: <span class="math">[&minus;8, 8]</span> (gaussian, silverman, logistic), <span class="math">[&minus;1.1, 1.1]</span> otherwise.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Convolutions <small>kconv</small></h2>
+        <div class="b">
+          <p><span class="fn">kernel.conv</span>(x = NULL, deriv.order = 0, kernel = "gaussian", n.grid = 512) &rarr; <span class="math">(K<sup>(r)</sup> &lowast; K<sup>(r)</sup>)(x)</span>, the building block of the CV criteria.</p>
+<pre>kc &lt;- <span class="k">kernel.conv</span>(kernel = "logistic", deriv.order = 1)
+<span class="k">plot</span>(kc)
+<span class="k">kernel.conv</span>(x = 0, kernel = "logistic", 1)@y   <span class="c"># -R(K') = -1/30</span></pre>
+          <p class="note">At 0: <span class="math">(K<sup>(r)</sup>&lowast;K<sup>(r)</sup>)(0) = (&minus;1)<sup>r</sup> R(K<sup>(r)</sup>)</span>. Default grid <span class="math">[&minus;2.1, 2.1]</span> for compact kernels.</p>
+        </div>
+      </section>
+
+      <section class="teal">
+        <h2>Kernel constants</h2>
+        <div class="b">
+<pre><span class="k">Cpp_kernel_constants</span>("biweight", 0)
+<span class="c">#      c     mu2     mu4       R</span>
+<span class="c">#     NA  0.1429  0.0476  0.7143</span>
+<span class="k">Cpp_kernel_constants</span>("pow(1.5,2.5)", 1)  <span class="c"># c, mu2, mu4, R(K')</span></pre>
+          <p class="note"><code>c</code> = normalising constant of a pow(s,t) kernel (<code>NA</code> for named kernels); <code>R</code> = <span class="math">R(K<sup>(r)</sup>)</span>.</p>
+        </div>
+      </section>
+
+      <section class="gold">
+        <h2>Datasets <small>?"kedd-data"</small></h2>
+        <div class="b">
+          <p style="margin:0">n = 200, Marron &amp; Wand (1992) mixtures: <span class="pill">kurtotic #4</span><span class="pill">outlier #5</span><span class="pill">bimodal #7</span><span class="pill">trimodal #9</span><span class="pill">claw #10</span> &nbsp;<code>h.mcv(claw)</code></p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <footer><span>kedd 2.0.0 &middot; GPL (&ge; 2) &middot; github.com/ac-guidoum/kedd &middot; doi:10.48550/arXiv.2012.06102</span><span>vignette("kedd") &middot; demo(package = "kedd") &middot; ?kedd</span><span>page 1 / 2</span></footer>
+</div>
+
+<!-- ============================== PAGE 2 ============================== -->
+<div class="page">
+  <header>
+    <img src="../man/figures/logo.png" alt="kedd logo">
+    <div>
+      <h1>kedd <span>:: BANDWIDTH SELECTION</span></h1>
+      <div class="tag">Eight data-driven selectors &mdash; all return an S4 object of class <b>bandwidth</b></div>
+    </div>
+    <div class="right"><b>common arguments</b><br><code>x, deriv.order = 0, kernel = "gaussian",</code><br><code>lower, upper, tol, nthreads = 0</code></div>
+  </header>
+
+  <div class="cols">
+    <!-- column 1 -->
+    <div class="col">
+      <section>
+        <h2>Selectors</h2>
+        <div class="b">
+          <table>
+            <tr><th>function</th><th>method</th><th>r</th><th>kernels</th></tr>
+            <tr><td class="fn">h.amise</td><td>AMISE rule (normal reference)</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.ucv</td><td>unbiased / least-squares CV</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.bcv</td><td>biased CV: <code>whichbcv = 1</code> (BCV1) or <code>2</code> (BCV2)</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.ccv</td><td>complete CV</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.mcv</td><td>modified CV</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.tcv</td><td>trimmed CV</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.scv</td><td>smoothed CV, pilot <code>g</code></td><td>any</td><td>gaussian</td></tr>
+            <tr><td class="fn">h.mlcv</td><td>maximum-likelihood CV</td><td>0</td><td>all</td></tr>
+          </table>
+<pre>bw &lt;- <span class="k">h.bcv</span>(x, whichbcv = 2, deriv.order = 1,
+            kernel = "triweight")
+<span class="k">h.scv</span>(x, g = 0.3)                 <span class="c"># own pilot</span>
+<span class="k">h.mlcv</span>(x, kernel = "epanechnikov")</pre>
+        </div>
+      </section>
+
+      <section class="teal">
+        <h2>Search interval &amp; tolerance</h2>
+        <div class="b">
+          <ul>
+            <li><code>optimize()</code> on <span class="math">[0.01 h<sub>os</sub>, 2 h<sub>os</sub>]</span>, <span class="math">h<sub>os</sub></span> = over-smoothing bandwidth (slot <code>hos</code>)</li>
+            <li><code>tol</code> default <code>0.01 * lower</code></li>
+            <li>invalid <code>lower</code>/<code>upper</code> &rArr; warning, defaults used</li>
+            <li>warning <i>"minimum occurred at one end of the range"</i> &rArr; inspect <code>plot(bw)</code>, widen <code>lower</code>/<code>upper</code></li>
+          </ul>
+<pre><span class="k">h.ucv</span>(x, lower = 0.05, upper = 1.5)</pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>Graphics <small>ggplot2</small></h2>
+        <div class="b">
+          <p>Every <code>plot()</code> prints a ggplot and returns it invisibly; customise with <code>main.title</code>, <code>x.title</code>, <code>y.title</code>, <code>colors = list(…)</code>, <code>theme = ggplot2::theme_bw()</code>, <code>type = "l" | "p" | "o"</code>.</p>
+<pre>p &lt;- <span class="k">plot</span>(<span class="k">dkde</span>(data = x, h = 0.4))
+p + ggplot2::<span class="k">geom_vline</span>(xintercept = 0)</pre>
+        </div>
+      </section>
+    </div>
+
+    <!-- column 2 -->
+    <div class="col">
+      <section>
+        <h2>Criteria <small>u = (X<sub>j</sub> &minus; X<sub>i</sub>)/h</small></h2>
+        <div class="b">
+          <p><b>UCV</b> &nbsp;<span class="math">R(K<sup>(r)</sup>)/(nh<sup>2r+1</sup>) + (&minus;1)<sup>r</sup>/(n(n&minus;1)h<sup>2r+1</sup>) &sum;<sub>i&ne;j</sub> [K<sup>(r)</sup>&lowast;K<sup>(r)</sup> &minus; 2K<sup>(2r)</sup>](u)</span></p>
+          <p><b>BCV1 / BCV2</b> &nbsp;AMISE with <span class="math">R(f<sup>(r+2)</sup>)</span> estimated by <span class="math">K<sup>(r+2)</sup>&lowast;K<sup>(r+2)</sup></span> (BCV1) or <span class="math">K<sup>(2r+4)</sup></span> (BCV2)</p>
+          <p><b>CCV</b> &nbsp;UCV + higher-order bias terms using <span class="math">K<sup>(2r+2)</sup>, K<sup>(2r+4)</sup>, &mu;<sub>2</sub>, &mu;<sub>4</sub></span></p>
+          <p><b>MCV</b> &nbsp;UCV with the <span class="math">&frac12;&mu;<sub>2</sub>K<sup>(2r+2)</sup></span> correction</p>
+          <p><b>TCV</b> &nbsp;UCV where pairs with <span class="math">|u| &le; 1/(nh<sup>2r+1</sup>)</span> are dropped from the <span class="math">K<sup>(2r)</sup></span> term</p>
+          <p><b>SCV</b> &nbsp;<span class="math">R(K<sup>(r)</sup>)/(nh<sup>2r+1</sup>) + (&minus;1)<sup>r</sup> 2/(n(n&minus;1)) &sum;<sub>i&lt;j</sub>[&phi;<sup>(2r)</sup><sub>s1</sub> &minus; 2&phi;<sup>(2r)</sup><sub>s2</sub> + &phi;<sup>(2r)</sup><sub>s3</sub>]</span>, &nbsp;<span class="math">s<sub>1</sub>=&radic;(2(h&sup2;+g&sup2;)), s<sub>2</sub>=&radic;(h&sup2;+2g&sup2;), s<sub>3</sub>=&radic;2 g</span>; default <span class="math">g = &sigma;&#770; &middot; 0.9266 n<sup>&minus;2/13</sup></span></p>
+          <p><b>MLCV</b> &nbsp;maximise <span class="math">n<sup>&minus;1</sup>&sum; log f&#770;<sub>&minus;i</sub>(X<sub>i</sub>)</span></p>
+          <p><b>AMISE</b> &nbsp;<span class="math">h = &sigma;&#770; [243(2r+1)R(K<sup>(r)</sup>) / (35 &mu;<sub>2</sub>(K)&sup2; n)]<sup>1/(2r+5)</sup></span></p>
+        </div>
+      </section>
+
+      <section class="gold">
+        <h2>Which selector?</h2>
+        <div class="b">
+          <ul>
+            <li><b>UCV</b>: unbiased but very variable, tends to undersmooth (worse as <span class="math">r</span> grows)</li>
+            <li><b>BCV, CCV, MCV</b>: stable, biased towards large <span class="math">h</span>; may have no interior minimum on multimodal data</li>
+            <li><b>SCV</b>: good compromise for Gaussian kernels</li>
+            <li><b>AMISE</b>: instant rule of thumb, good for unimodal data</li>
+            <li>Compare several criteria on one plot (right) before deciding</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- column 3 -->
+    <div class="col">
+      <section>
+        <h2>The bandwidth object</h2>
+        <div class="b">
+          <table>
+            <tr><th>slot</th><th>content</th></tr>
+            <tr><td><code>h</code></td><td>selected bandwidth</td></tr>
+            <tr><td><code>min.obj</code></td><td>criterion value at <code>h</code></td></tr>
+            <tr><td><code>hos</code></td><td>over-smoothing bandwidth</td></tr>
+            <tr><td><code>method</code></td><td>"UCV", "BCV1", …, "MLCV"</td></tr>
+            <tr><td><code>kernel</code>, <code>deriv.order</code>, <code>data</code></td><td>inputs used</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="teal">
+        <h2>Plotting criteria <small>plot() / lines()</small></h2>
+        <div class="b">
+          <div class="flex">
+            <svg width="70" height="40" viewBox="0 0 70 40" aria-hidden="true">
+              <path d="M3 6 C 14 30, 22 34, 30 33 S 52 22, 67 10" fill="none" stroke="#14213D" stroke-width="1.8"/>
+              <path d="M3 14 C 16 32, 28 36, 38 30 S 58 16, 67 6" fill="none" stroke="#E85D5D" stroke-width="1.5"/>
+              <line x1="30" y1="2" x2="30" y2="38" stroke="#E9A23B" stroke-width="1.2" stroke-dasharray="3 2"/>
+              <path d="M30 29 l3 4 l-3 4 l-3 -4 z" fill="#E9A23B"/>
+            </svg>
+            <p style="margin:0"><code>plot(bw)</code> draws the criterion around <code>h</code> and marks the minimum; returns <code>list(h, cv, plot)</code> invisibly.</p>
+          </div>
+<pre><span class="k">plot</span>(bw, show.hos = TRUE, log_scale_x = TRUE,
+     h = <span class="k">seq</span>(0.1, 1, length.out = 100))
+p &lt;- <span class="k">plot</span>(<span class="k">h.ucv</span>(x))
+p$plot + <span class="k">lines</span>(<span class="k">h.bcv</span>(x), color = "darkred") +
+         <span class="k">lines</span>(<span class="k">h.mcv</span>(x), color = "orange")</pre>
+          <p class="note"><code>lines()</code> returns a <b>ggplot2 layer</b>, added with <code>+</code>. Not available for AMISE (closed-form rule).</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Speed &amp; low level</h2>
+        <div class="b">
+          <ul>
+            <li>All <span class="math">O(n&sup2;)</span> criteria run in C++ with OpenMP: <code>nthreads = 0</code> all cores, <code>k</code> = k threads, <code>1</code> sequential; per call, capped by <code>OMP_THREAD_LIMIT</code>, identical result. <code>Cpp_omp_threads(0)</code> = threads used</li>
+            <li><code>Cpp_kernel_deriv(k, u, r)</code>, <code>Cpp_kernel_conv(k, u, r)</code>, <code>Cpp_h_ucv(h, k, r, x, nthreads)</code>, <code>Cpp_plot_cv(method, h, k, r, x)</code>, <code>Cpp_hos(k, r, n)</code> &mdash; see <code>?"kedd-lowlevel"</code></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="gold">
+        <h2>Learn more</h2>
+        <div class="b">
+<pre><span class="k">vignette</span>("kedd", package = "kedd")
+<span class="k">demo</span>("kedd"); <span class="k">demo</span>("kernels"); <span class="k">demo</span>("bandwidths")
+?kedd; ?kernel.pow; ?h.ucv</pre>
+        </div>
+      </section>
+    </div>
+  </div>
+  <footer><span>Guidoum, A. C. (2020). Kernel estimator and bandwidth selection for density and its derivatives: the kedd package. arXiv:2012.06102</span><span>issues: github.com/ac-guidoum/kedd/issues</span><span>page 2 / 2</span></footer>
+</div>
+
+</body>
+</html>
