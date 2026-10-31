@@ -254,3 +254,7 @@ setMethod("plot", "kconv",
     invisible(p)
   }
 )
+
+## kedd 1.x compatibility: kernel.fun(...)$kx, kernel.conv(...)$kx, $x, ...
+setMethod("$", "kfun",  function(x, name) .dollar(x, name, c(kx = "y")))
+setMethod("$", "kconv", function(x, name) .dollar(x, name, c(kx = "y")))
