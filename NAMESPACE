@@ -1,7 +1,7 @@
 useDynLib(kedd, .registration = TRUE)
 importFrom(Rcpp, evalCpp)
 importFrom(methods, new, is, isVirtualClass, setClass, setValidity,
-           setGeneric, setMethod, show, validObject)
+           setGeneric, setMethod, show, validObject, slot, slotNames)
 importFrom(stats,  optimize, sd, var)
 importFrom(graphics, plot, lines, legend, curve)
 importFrom(ggplot2, ggplot, aes, geom_line, geom_point, geom_vline,
@@ -15,7 +15,7 @@ importFrom(utils, globalVariables)
 exportClasses(bandwidth, dkde, kfun, kconv)
 
 ## Generics
-exportMethods(show, plot, lines)
+exportMethods(show, plot, lines, "$")
 
 ## Bandwidth selectors
 export(h.ucv, h.bcv, h.ccv, h.mcv, h.tcv, h.amise, h.mlcv, h.scv)
