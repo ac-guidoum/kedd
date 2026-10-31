@@ -13,8 +13,8 @@ h.mcv(x, deriv.order = 0L, kernel = "gaussian",
 \arguments{
   \item{x}{numeric vector of data values.}
   \item{deriv.order}{non-negative integer: derivative order \eqn{r}. MCV uses
-    \eqn{K^{(r+1)}}, so the maximum \eqn{r} is: any for gaussian, cosine and
-    silverman; logistic 8; epanechnikov 0; biweight 1; triweight 2;
+    \eqn{K^{(r+1)}}, so the maximum \eqn{r} is: any for gaussian and
+    silverman; cosine 0; logistic 8; epanechnikov 0; biweight 1; triweight 2;
     tricube 2; \code{pow(s,t)} \eqn{\min(r^*-1, 6)}{min(r*-1, 6)} (see
     \code{\link{h.ucv}} for \eqn{r^*}{r*}); not available for uniform and
     triangular. Above it \code{h = NA} is returned with a warning. See
