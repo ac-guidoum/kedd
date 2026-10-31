@@ -15,11 +15,11 @@ h.amise(x, deriv.order = 0L, kernel = "gaussian")
 \arguments{
   \item{x}{numeric vector of data values.}
   \item{deriv.order}{non-negative integer: derivative order \eqn{r}. Maximum
-    \eqn{r} for this selector: any for gaussian, cosine and silverman;
+    \eqn{r} for this selector: any for gaussian and silverman; cosine 1;
     logistic 8; epanechnikov 1; uniform 0; triangular 0; biweight 2;
     triweight 3; tricube 3; \code{pow(s,t)} \eqn{\min(r^*, 6)}{min(r*, 6)}, where
     \eqn{r^*}{r*} is the largest integer \eqn{r < t + 1/2} (and
-    \eqn{r < s + 1/2} if \eqn{s} is not an integer, and \eqn{2r \le st}{2r <= st}
+    \eqn{r < s + 1/2} if \eqn{s} is not an even integer, and \eqn{2r \le st}{2r <= st}
     if \eqn{s} and \eqn{t} are integers). Above it \code{h = NA}
     is returned with a warning. See \code{\link{kedd-package}}, section
     \sQuote{Maximum derivative order}.}
