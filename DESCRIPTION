@@ -14,7 +14,7 @@ Authors@R: c(
 Maintainer: Arsalane Chouaib Guidoum <acguidoum@univ-tam.dz>
 Description: Kernel estimation of a univariate probability density and of its
     derivatives of any order r, with data-driven bandwidth selection. Provides the
-    kernel estimator of the r-th derivative, the kernels, their derivatives and
+    kernel estimator of the derivative of order r, the kernels, their derivatives and
     convolutions, and eight bandwidth selectors: the asymptotic MISE rule (AMISE),
     and unbiased (UCV), biased (BCV1, BCV2), complete (CCV), modified (MCV),
     trimmed (TCV), smoothed (SCV) and maximum-likelihood (MLCV) cross-validation.
