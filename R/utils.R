@@ -44,12 +44,15 @@ kernel.pow <- function(s = 2, t = 2) {
   as.numeric(strsplit(sub("^pow\\((.*)\\)$", "\\1", kernel), ",")[[1L]])
 }
 
-## TRUE when R(K^(r)) is infinite or K^(2r) vanishes for the power family
-## (for integer s, t, K is a polynomial of degree st in |x|, as the named kernels)
+## TRUE when K^(r) is not square integrable or K^(2r) vanishes for the power family:
+## r < t + 1/2 (behaviour at |x| = 1), r < s + 1/2 unless s is an even integer
+## (behaviour of |x|^s at 0), and 2r <= st for integer s, t (K is then a
+## polynomial of degree st in |x|, as the named kernels)
 .pow_bad <- function(kernel, r) {
-  st  <- .pow_params(kernel)
-  int <- all(st == round(st))
-  (2 * r >= 2 * st[2L] + 1) || (st[1L] != round(st[1L]) && 2 * r >= 2 * st[1L] + 1) ||
+  st   <- .pow_params(kernel)
+  int  <- all(st == round(st))
+  even <- st[1L] == round(st[1L]) && st[1L] %% 2 == 0
+  (2 * r >= 2 * st[2L] + 1) || (!even && 2 * r >= 2 * st[1L] + 1) ||
     (int && 2 * r > st[1L] * st[2L])
 }
 
@@ -86,6 +89,7 @@ kernel.pow <- function(s = 2, t = 2) {
          (kernel == "biweight"     && (2L * r) >= 5L) ||
          (kernel == "triweight"    && (2L * r) >= 7L) ||
          (kernel == "tricube"      && (2L * r) >= 7L) ||
+         (kernel == "cosine"       && r >= 2L) ||
          (kernel == "logistic"     && 2L * r + 4L > 20L) ||
          (startsWith(kernel, "pow(") && (2L * r + 4L > 16L || .pow_bad(kernel, r)))
   list(x = x, r = r, n = n, kernel = kernel,
