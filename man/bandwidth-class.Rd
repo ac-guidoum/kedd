@@ -4,6 +4,7 @@
 \alias{show,bandwidth-method}
 \alias{plot,bandwidth-method}
 \alias{lines,bandwidth-method}
+\alias{$,bandwidth-method}
 \title{Class \code{"bandwidth"} --- Result of Bandwidth Selection}
 \description{
   An S4 class returned by all bandwidth selector functions in \pkg{kedd}
@@ -54,6 +55,11 @@
     \item{\code{lines(x, n.points = 100L, color, linewidth, linetype, ...)}}{Returns
       a \code{ggplot2::geom_line()} layer with the curve of \code{x}, to be
       added to a plot: \code{plot(bw1)$plot + lines(bw2)}.}
+    \item{\code{x$name}}{Compatibility with \pkg{kedd} 1.x, where the
+      selectors returned a list: \code{bw$h} is \code{bw@h}, and \code{$}
+      also accepts the slot names, \code{x} (the data), \code{n} and the
+      1.x names \code{min.ucv}, \code{min.bcv}, ... (the slot
+      \code{min.obj}).  Unknown names give \code{NULL}.}
   }
 }
 \author{Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz}}
