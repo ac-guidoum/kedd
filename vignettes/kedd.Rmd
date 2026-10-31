@@ -78,7 +78,8 @@ return `h = NA` with a warning; "—" means not available even at $r = 0$:
 
 | kernel | `h.ucv`, `h.bcv`, `h.tcv`, `h.amise` | `h.mcv` | `h.ccv` |
 |---|:---:|:---:|:---:|
-| `gaussian`, `cosine`, `silverman` | any | any | any |
+| `gaussian`, `silverman` | any | any | any |
+| `cosine` | 1 | 0 | — |
 | `logistic` | 8 | 8 | 8 |
 | `epanechnikov` | 1 | 0 | — |
 | `uniform` | 0 | — | — |
@@ -89,7 +90,7 @@ return `h = NA` with a warning; "—" means not available even at $r = 0$:
 | `pow(s,t)` | $\min(r^\ast, 6)$ | $\min(r^\ast-1, 6)$ | $\min(r^\ast-2, 6)$ |
 
 Here $r^\ast$ is the largest integer $r < t + \frac12$ (with $2r \le st$ when $s$
-and $t$ are integers, and $r < s + \frac12$ when $s$ is not an integer); e.g. `pow(2,3)`: 3, 2, 1. `h.scv` (Gaussian
+and $t$ are integers, and $r < s + \frac12$ when $s$ is not an even integer); e.g. `pow(2,3)`: 3, 2, 1. `h.scv` (Gaussian
 kernel) has no limit and `h.mlcv` is for $r = 0$ only.
 
 `kernel.fun()` evaluates $K^{(r)}$ on a grid (or at given points) and returns an
