@@ -178,7 +178,7 @@ plot(dkde(data = bimodal, h = h.ucv(bimodal, deriv.order = 1)@h, deriv.order = 1
 ## Cheatsheet
 
 A two-page summary of the package is available in
-[`cheatsheet/kedd-cheatsheet.pdf`](cheatsheet/kedd-cheatsheet.pdf)
+[`cheatsheet/kedd-cheatsheet.pdf`](https://github.com/ac-guidoum/kedd/blob/main/cheatsheet/kedd-cheatsheet.pdf)
 (source: `cheatsheet/kedd-cheatsheet.html`).
 
 ## Vignette and demos
