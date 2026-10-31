@@ -10,6 +10,9 @@
 \alias{plot,kfun-method}
 \alias{show,kconv-method}
 \alias{plot,kconv-method}
+\alias{$,dkde-method}
+\alias{$,kfun-method}
+\alias{$,kconv-method}
 \title{Classes \code{"dkde"}, \code{"kfun"} and \code{"kconv"}}
 \description{
   S4 classes returned by \code{\link{dkde}} (kernel density derivative
@@ -43,6 +46,12 @@
       horizontal line at 0.  For \code{"dkde"} objects, \code{rug} and
       \code{band} (default \code{TRUE}) add the observations and a
       \eqn{\pm}{+/-} one standard-error band.}
+    \item{\code{x$name}}{Compatibility with \pkg{kedd} 1.x, where these
+      functions returned lists: \code{$kx} is the slot \code{y} of
+      \code{"kfun"} and \code{"kconv"} objects, and \code{$eval.points},
+      \code{$est.fx} are the slots \code{x}, \code{y} of \code{"dkde"}
+      objects; the slot names can also be used.  Unknown names give
+      \code{NULL}.}
   }
 }
 \author{Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz}}
