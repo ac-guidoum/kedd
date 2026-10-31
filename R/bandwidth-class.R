@@ -201,3 +201,10 @@ setMethod("lines", "bandwidth", function(x, n.points = 100L,
     ...
   )
 })
+
+## kedd 1.x compatibility: bw$h, bw$kernel, bw$deriv.order, bw$x, bw$n, bw$min.ucv, ...
+setMethod("$", "bandwidth", function(x, name) {
+  if (name == "n") return(length(x@data))
+  if (startsWith(name, "min.")) return(x@min.obj)
+  .dollar(x, name, c(x = "data"))
+})
