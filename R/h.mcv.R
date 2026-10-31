@@ -15,6 +15,7 @@ h.mcv <- function(x, deriv.order = 0L, kernel = "gaussian",
     (v$kernel == "biweight"     && 2L * v$r + 2L >= 5L) ||
     (v$kernel == "triweight"    && 2L * v$r + 2L >= 7L) ||
     (v$kernel == "tricube"      && 2L * v$r + 2L >= 7L) ||
+    (v$kernel == "cosine"       && v$r + 1L >= 2L) ||
     (startsWith(v$kernel, "pow(") && .pow_bad(v$kernel, v$r + 1L))
   if (bad_mcv) {
     warning("deriv.order is above the maximum order of MCV for this kernel; h = NA.")
