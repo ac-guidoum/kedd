@@ -61,7 +61,7 @@ functions. Logistic derivatives are available up to order 20.
 | `h.scv` | Smoothed Cross-Validation (Gaussian kernel) | 0, 1, 2, … (no limit) | Hall, Marron & Park (1992) |
 | `h.mlcv` | Maximum-Likelihood Cross-Validation | 0 only | Habbema et al. (1974), Duin (1976) |
 
-With the Gaussian, cosine and Silverman kernels every order r is allowed; with
+With the Gaussian and Silverman kernels every order r is allowed; with
 the other kernels r is limited, as given in the table
 [Maximum derivative order r](#maximum-derivative-order-r) below.
 
@@ -77,7 +77,8 @@ $r = 0$.
 
 | Kernel | `kernel.fun`, `kernel.conv`, `dkde` | `h.ucv`, `h.bcv`, `h.tcv`, `h.amise` | `h.mcv` | `h.ccv` |
 |---|:---:|:---:|:---:|:---:|
-| gaussian, cosine, silverman | any | any | any | any |
+| gaussian, silverman | any | any | any | any |
+| cosine | any | 1 | 0 | — |
 | logistic | 20 | 8 | 8 | 8 |
 | epanechnikov | 2 | 1 | 0 | — |
 | uniform | 0 | 0 | — | — |
@@ -88,7 +89,7 @@ $r = 0$.
 | pow(s,t) | $\min(st, 16)$ | $\min(r^\ast, 6)$ | $\min(r^\ast-1, 6)$ | $\min(r^\ast-2, 6)$ |
 
 For Pow(s,t), $r^\ast$ is the largest integer $r < t + \frac12$, with $2r \le st$
-when $s$ and $t$ are integers and $r < s + \frac12$ when $s$ is not an integer
+when $s$ and $t$ are integers and $r < s + \frac12$ when $s$ is not an even integer
 (so `pow(3,3)` and `tricube` both give 3, 2, 1). Examples: `pow(2,3)` 6, 3, 2, 1;
 `pow(2,8)` 16, 6, 6, 6; `pow(1.5,2.5)` 16, 1, 0, —. `h.scv` (Gaussian kernel)
 has no limit and `h.mlcv` is for $r = 0$ only. The same table is in
