@@ -73,7 +73,7 @@
   \tabular{lcccc}{
     \bold{kernel} \tab \bold{kernel.fun, kernel.conv, dkde} \tab \bold{UCV, BCV, TCV, AMISE} \tab \bold{MCV} \tab \bold{CCV} \cr
     \code{gaussian}     \tab any \tab any \tab any \tab any \cr
-    \code{cosine}       \tab any \tab any \tab any \tab any \cr
+    \code{cosine}       \tab any \tab 1   \tab 0   \tab --  \cr
     \code{silverman}    \tab any \tab any \tab any \tab any \cr
     \code{logistic}     \tab 20  \tab 8   \tab 8   \tab 8   \cr
     \code{epanechnikov} \tab 2   \tab 1   \tab 0   \tab --  \cr
@@ -87,7 +87,7 @@
   For \code{pow(s,t)}, \eqn{st} applies when \eqn{s} and \eqn{t} are integers
   (16 otherwise), and \eqn{r^*}{r*} is the largest integer
   \eqn{r < t + 1/2}, with \eqn{2r \le st}{2r <= st} when \eqn{s} and \eqn{t}
-  are integers and \eqn{r < s + 1/2} when \eqn{s} is not an integer.
+  are integers and \eqn{r < s + 1/2} when \eqn{s} is not an even integer.
   For example \code{pow(2,3)}: 6, 3, 2, 1; \code{pow(2,8)}: 16, 6, 6, 6;
   \code{pow(1.5,2.5)}: 16, 1, 0, --.
   \code{\link{h.scv}} (Gaussian kernel) has no limit and \code{\link{h.mlcv}}
