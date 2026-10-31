@@ -240,14 +240,34 @@ struct LogisticPoly {
 };
 static const LogisticPoly LOGIS_Q;
 
-/* R(K^(r)) = int_0^1 (y - y^2) Q_{r+1}(y)^2 dy, exact */
+/* R(K^(r)) = |B_{2r+2}| (Bernoulli numbers), from the characteristic function
+ * pi w / sinh(pi w) and Parseval's identity; exact rationals, r = 0..20. */
 static double logistic_Rr(int r) {
+    static const double absB[LOGIS_MAXR + 1] = {
+        1.0 / 6.0,                                   /* |B_2|  */
+        1.0 / 30.0,                                  /* |B_4|  */
+        1.0 / 42.0,                                  /* |B_6|  */
+        1.0 / 30.0,                                  /* |B_8|  */
+        5.0 / 66.0,                                  /* |B_10| */
+        691.0 / 2730.0,                              /* |B_12| */
+        7.0 / 6.0,                                   /* |B_14| */
+        3617.0 / 510.0,                              /* |B_16| */
+        43867.0 / 798.0,                             /* |B_18| */
+        174611.0 / 330.0,                            /* |B_20| */
+        854513.0 / 138.0,                            /* |B_22| */
+        236364091.0 / 2730.0,                        /* |B_24| */
+        8553103.0 / 6.0,                             /* |B_26| */
+        23749461029.0 / 870.0,                       /* |B_28| */
+        8615841276005.0 / 14322.0,                   /* |B_30| */
+        7709321041217.0 / 510.0,                     /* |B_32| */
+        2577687858367.0 / 6.0,                       /* |B_34| */
+        26315271553053477373.0 / 1919190.0,          /* |B_36| */
+        2929993913841559.0 / 6.0,                    /* |B_38| */
+        261082718496449122051.0 / 13530.0,           /* |B_40| */
+        1520097643918070802691.0 / 1806.0            /* |B_42| */
+    };
     if (r < 0 || r > LOGIS_MAXR) return 0.0;
-    double acc = 0.0;
-    for (int k = 0; k <= r; ++k)
-        for (int l = 0; l <= r; ++l)
-            acc += LOGIS_Q.q[r][k] * LOGIS_Q.q[r][l] * (1.0 / (k + l + 2) - 1.0 / (k + l + 3));
-    return acc;
+    return absB[r];
 }
 
 double A2_kM(const char* kernel);
