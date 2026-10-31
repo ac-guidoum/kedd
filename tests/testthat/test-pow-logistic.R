@@ -208,10 +208,40 @@ test_that("pow(s,t) et noyau nomme : memes ordres maximaux pour les selecteurs",
     expect_identical(b, a, label = paste(nm, pow_equiv[[k]], "r =", r))
   }
   ## tricube = pow(3,3) : UCV 3, MCV 2, CCV 1
-  expect_false(is.na(h.ucv(xs, deriv.order = 3L, kernel = "tricube")@h))
+  expect_false(is.na(suppressWarnings(h.ucv(xs, deriv.order = 3L, kernel = "tricube"))@h))
   expect_warning(h.ucv(xs, deriv.order = 4L, kernel = "tricube"), "maximum order")
   expect_warning(h.mcv(xs, deriv.order = 3L, kernel = "tricube"), "maximum order")
   expect_warning(h.ccv(xs, deriv.order = 2L, kernel = "tricube"), "maximum order")
+})
+
+test_that("pow(s,t) avec s impair : r < s + 1/2", {
+  ## pow(1,4) : |x| non derivable en 0, donc r <= 1 (r <= 2 par t et st seuls)
+  expect_false(is.na(suppressWarnings(h.ucv(xs, deriv.order = 1L, kernel = "pow(1,4)"))@h))
+  expect_warning(h.ucv(xs, deriv.order = 2L, kernel = "pow(1,4)"), "maximum order")
+  ## s pair : pas de restriction en 0
+  expect_false(is.na(suppressWarnings(h.ucv(xs, deriv.order = 2L, kernel = "pow(2,4)"))@h))
+})
+
+test_that("cosinus : UCV r <= 1, MCV r = 0, CCV indisponible", {
+  expect_false(is.na(suppressWarnings(h.ucv(xs, deriv.order = 1L, kernel = "cosine"))@h))
+  expect_warning(h.ucv(xs, deriv.order = 2L, kernel = "cosine"), "maximum order")
+  expect_warning(h.bcv(xs, deriv.order = 2L, kernel = "cosine"), "maximum order")
+  expect_false(is.na(suppressWarnings(h.mcv(xs, kernel = "cosine"))@h))
+  expect_warning(h.mcv(xs, deriv.order = 1L, kernel = "cosine"), "maximum order")
+  expect_warning(h.ccv(xs, kernel = "cosine"), "maximum order")
+})
+
+test_that("logistique : R(K^(r)) = |B_{2r+2}| (nombres de Bernoulli)", {
+  absB <- c(1/6, 1/30, 1/42, 1/30, 5/66, 691/2730, 7/6, 3617/510, 43867/798,
+            174611/330, 854513/138)
+  R <- sapply(0:10, function(r) Cpp_kernel_constants("logistic", r)[["R"]])
+  expect_equal(R, absB, tolerance = 1e-14)
+  ## et integration numerique pour r <= 4
+  for (r in 0:4) {
+    num <- integrate(function(u) Cpp_kernel_deriv("logistic", u, r)^2, -40, 40,
+                     subdivisions = 2000L, rel.tol = 1e-12)$value
+    expect_equal(R[r + 1L], num, tolerance = 1e-9)
+  }
 })
 
 test_that("pow : ordres de derivee non admissibles -> NA + warning", {
