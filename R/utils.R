@@ -119,3 +119,11 @@ kernel.pow <- function(s = 2, t = 2) {
   }
   c(lower, upper)
 }
+
+## `$` access kept for code written for kedd 1.x, where results were lists:
+## a name is first translated (1.x element -> 2.0 slot), then read as a slot;
+## unknown names give NULL, as for a list.
+.dollar <- function(obj, name, alias = character()) {
+  if (name %in% names(alias)) name <- alias[[name]]
+  if (name %in% methods::slotNames(obj)) methods::slot(obj, name) else NULL
+}
