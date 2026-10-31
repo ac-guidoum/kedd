@@ -167,3 +167,7 @@ setMethod("plot", "dkde",
     invisible(p)
   }
 )
+
+## kedd 1.x compatibility: dkde(...)$est.fx, $eval.points, $h, $n, ...
+setMethod("$", "dkde", function(x, name)
+  .dollar(x, name, c(eval.points = "x", est.fx = "y")))
