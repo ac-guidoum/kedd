@@ -19,8 +19,8 @@ dkde(x = NULL, data, h, deriv.order = 0L,
   \item{h}{positive bandwidth scalar.  If missing, the UCV bandwidth
     \code{\link{h.ucv}(data, deriv.order, kernel)} is used.}
   \item{deriv.order}{non-negative integer: derivative order \eqn{r}. Maximum
-    \eqn{r} with \eqn{K^{(r)} \ne 0}: any for gaussian, cosine and silverman;
-    logistic 20; epanechnikov 2; uniform 0; triangular 1; biweight 4;
+    \eqn{r} with \eqn{K^{(r)} \ne 0}: any for Gaussian, cosine and Silverman;
+    logistic 20; Epanechnikov 2; uniform 0; triangular 1; biweight 4;
     triweight 6; tricube 9; \code{pow(s,t)} \eqn{\min(st, 16)}{min(st, 16)}.
     When \code{h} is missing it is chosen by \code{\link{h.ucv}}, whose limits
     are lower (see \code{\link{kedd-package}}, section
