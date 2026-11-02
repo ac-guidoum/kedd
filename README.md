@@ -15,7 +15,7 @@ convolutions, and eight data-driven bandwidth selectors. Results are S4 objects
 with ggplot2 graphics; the $O(n^2)$ criteria run in C++ (Rcpp) with OpenMP.
 
 **Authors:** Arsalane Chouaib Guidoum (author, maintainer) and Amel Henider
-(contributor) — see [Authors](#authors).
+(author), with Iago Giné-Vázquez (contributor) — see [Authors](#authors).
 
 ## Features
 
@@ -77,10 +77,10 @@ $r = 0$.
 
 | Kernel | `kernel.fun`, `kernel.conv`, `dkde` | `h.ucv`, `h.bcv`, `h.tcv`, `h.amise` | `h.mcv` | `h.ccv` |
 |---|:---:|:---:|:---:|:---:|
-| gaussian, silverman | any | any | any | any |
+| Gaussian, Silverman | any | any | any | any |
 | cosine | any | 1 | 0 | — |
 | logistic | 20 | 8 | 8 | 8 |
-| epanechnikov | 2 | 1 | 0 | — |
+| Epanechnikov | 2 | 1 | 0 | — |
 | uniform | 0 | 0 | — | — |
 | triangular | 1 | 0 | — | — |
 | biweight | 4 | 2 | 1 | 0 |
@@ -262,7 +262,8 @@ The figure and the numbers are regenerated with `source("data-raw/downloads.R")`
 | Name | Role | Contact |
 |------|------|---------|
 | **Arsalane Chouaib Guidoum** | author, maintainer | <acguidoum@univ-tam.dz> · ORCID [0000-0003-3781-2160](https://orcid.org/0000-0003-3781-2160) |
-| **Amel Henider** | contributor | <amel.henider@univ-tam.dz> |
+| **Amel Henider** | author | <amel.henider@univ-tam.dz> |
+| **Iago Giné-Vázquez** | contributor | <iago.gin-vaz@protonmail.com> · ORCID [0000-0002-6725-2638](https://orcid.org/0000-0002-6725-2638) |
 
 Source code: <https://github.com/ac-guidoum/kedd> · bug reports and
 suggestions: <https://github.com/ac-guidoum/kedd/issues>.
