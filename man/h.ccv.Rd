@@ -13,11 +13,11 @@ h.ccv(x, deriv.order = 0L, kernel = "gaussian",
 \arguments{
   \item{x}{numeric vector of data values.}
   \item{deriv.order}{non-negative integer: derivative order \eqn{r}. CCV uses
-    \eqn{K^{(r+2)}}, so the maximum \eqn{r} is: any for gaussian and
-    silverman; logistic 8; biweight 0; triweight 1; tricube 1;
+    \eqn{K^{(r+2)}}, so the maximum \eqn{r} is: any for Gaussian and
+    Silverman; logistic 8; biweight 0; triweight 1; tricube 1;
     \code{pow(s,t)} \eqn{\min(r^*-2, 6)}{min(r*-2, 6)} (see \code{\link{h.ucv}}
     for \eqn{r^*}{r*}); not available for uniform, triangular,
-    epanechnikov and cosine. Above it \code{h = NA} is returned with a warning. See
+    Epanechnikov and cosine. Above it \code{h = NA} is returned with a warning. See
     \code{\link{kedd-package}}, section \sQuote{Maximum derivative order}.}
   \item{kernel}{character string giving the kernel; one of
     \code{"gaussian"} (default), \code{"epanechnikov"}, \code{"uniform"},
