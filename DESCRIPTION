@@ -2,7 +2,7 @@ Package: kedd
 Type: Package
 Title: Kernel Estimator and Bandwidth Selection for Density and Its Derivatives
 Version: 2.0.0
-Date: 2026-10-30
+Date: 2026-11-01
 Authors@R: c(
     person("Arsalane Chouaib", "Guidoum",
            email   = "acguidoum@univ-tam.dz",
@@ -10,7 +10,11 @@ Authors@R: c(
            comment = c(ORCID = "0000-0003-3781-2160")),
     person("Amel", "Henider",
            email   = "amel.henider@univ-tam.dz",
-           role    = "ctb"))
+           role    = "aut"),
+    person("Iago", "Giné-Vázquez",
+           email   = "iago.gin-vaz@protonmail.com",
+           role    = "ctb",
+           comment = c(ORCID = "0000-0002-6725-2638")))
 Maintainer: Arsalane Chouaib Guidoum <acguidoum@univ-tam.dz>
 Description: Kernel estimation of a univariate probability density and of its
     derivatives of any order r, with data-driven bandwidth selection. Provides the
@@ -18,8 +22,8 @@ Description: Kernel estimation of a univariate probability density and of its
     convolutions, and eight bandwidth selectors: the asymptotic MISE rule (AMISE),
     and unbiased (UCV), biased (BCV1, BCV2), complete (CCV), modified (MCV),
     trimmed (TCV), smoothed (SCV) and maximum-likelihood (MLCV) cross-validation.
-    Supports ten named kernels (gaussian, epanechnikov, uniform, triangular,
-    biweight, triweight, tricube, cosine, silverman, logistic) and the power
+    Supports ten named kernels (Gaussian, Epanechnikov, uniform, triangular,
+    biweight, triweight, tricube, cosine, Silverman, logistic) and the power
     family Pow(s,t), c(1-|x|^s)^t on [-1,1]. Results are S4 objects with 'ggplot2'
     graphics; the O(n^2) criteria are computed in C++ ('Rcpp') with 'OpenMP'
     parallelism. Includes five example samples from Marron and Wand (1992)
