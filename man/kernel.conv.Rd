@@ -12,8 +12,8 @@ kernel.conv(x = NULL, deriv.order = 0L, kernel = "gaussian", n.grid = 512L)
 \eqn{[-2.1, 2.1]} (compact-support kernels) is used.}
 
 \item{deriv.order}{derivative order \eqn{r \ge 0} (integer). Maximum
-\eqn{r} with a non-zero convolution: any for gaussian, cosine and silverman;
-logistic 20; epanechnikov 2; uniform 0; triangular 1; biweight 4;
+\eqn{r} with a non-zero convolution: any for Gaussian, cosine and Silverman;
+logistic 20; Epanechnikov 2; uniform 0; triangular 1; biweight 4;
 triweight 6; tricube 9; \code{pow(s,t)} \eqn{\min(st, 16)}{min(st, 16)}
 (16 if \eqn{s} or \eqn{t} is not an integer). See \code{\link{kedd-package}},
 section \sQuote{Maximum derivative order}.}
