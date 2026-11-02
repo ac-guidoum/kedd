@@ -1,4 +1,4 @@
-Version 2.0.0: 2026-10-30    o Version 2.0.0 released.
+Version 2.0.0: 2026-11-01    o Version 2.0.0 released.
                              o New bandwidth selector h.scv(): Smoothed
                                Cross-Validation (Hall, Marron & Park 1992) with
                                fully analytical closed-form criterion for the
