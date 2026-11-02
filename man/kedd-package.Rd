@@ -94,8 +94,9 @@
   is for \eqn{r = 0} only.
 }
 \author{
-  Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz} (maintainer),
-  Amel Henider (contributor).
+  Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz} (author, maintainer),
+  Amel Henider \email{amel.henider@univ-tam.dz} (author),
+  Iago Giné-Vázquez \email{iago.gin-vaz@protonmail.com} (contributor).
 }
 \references{
   Guidoum, A. C. (2020). Kernel estimator and bandwidth selection for density
