@@ -8,7 +8,7 @@
 [![Weekly downloads](https://cranlogs.r-pkg.org/badges/last-week/kedd)](https://cran.r-project.org/package=kedd)
 [![Test coverage](https://img.shields.io/badge/coverage-99.5%25-brightgreen)](#tests)
 
-The `kedd` package (v2.0.0) provides nonparametric kernel smoothing tools for
+The `kedd` package (v2.0.1) provides nonparametric kernel smoothing tools for
 [R](https://www.r-project.org/): kernel estimation of a density **and of its
 derivatives of any order r**, kernel functions, their derivatives and
 convolutions, and eight data-driven bandwidth selectors. Results are S4 objects
@@ -107,21 +107,21 @@ has no limit and `h.mlcv` is for $r = 0$ only. The same table is in
 ## Installation
 
 ```r
-# Development version 2.0.0 from GitHub
+# Development version 2.0.1 from GitHub
 # install.packages("remotes")
 remotes::install_github("ac-guidoum/kedd", build_vignettes = TRUE)
 
-# Version 2.0.0 from the source tarball
-install.packages("kedd_2.0.0.tar.gz", repos = NULL, type = "source")
+# Version 2.0.1 from the source tarball
+install.packages("kedd_2.0.1.tar.gz", repos = NULL, type = "source")
 
 # or from the source directory
-devtools::install("path/to/kedd_2.0.0")
+devtools::install("path/to/kedd_2.0.1")
 
 # Released version on CRAN
 install.packages("kedd")
 ```
 
-Version 2.0.0 compiles C++ code: on Windows this needs
+Version 2.0.1 compiles C++ code: on Windows this needs
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
 
 ## Quick start
@@ -215,7 +215,7 @@ Line coverage measured with [`covr`](https://CRAN.R-project.org/package=covr)
 | `R/utils.R` | 98.3 % | | |
 
 ```r
-cv <- covr::package_coverage("path/to/kedd_2.0.0", type = "tests")
+cv <- covr::package_coverage("path/to/kedd_2.0.1", type = "tests")
 covr::percent_coverage(cv)                     # 99.5
 covr::report(cv)                               # line-by-line HTML report
 source("data-raw/benchmark.R")                 # execution time of every function
