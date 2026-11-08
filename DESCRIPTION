@@ -1,8 +1,8 @@
 Package: kedd
 Type: Package
 Title: Kernel Estimator and Bandwidth Selection for Density and Its Derivatives
-Version: 2.0.0
-Date: 2026-11-01
+Version: 2.0.1
+Date: 2026-11-08
 Authors@R: c(
     person("Arsalane Chouaib", "Guidoum",
            email   = "acguidoum@univ-tam.dz",
