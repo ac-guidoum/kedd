@@ -1,6 +1,6 @@
 ---
 title: "kedd: kernel estimation of a density and its derivatives"
-author: "Arsalane Chouaib Guidoum and Amel Henider"
+author: "Arsalane Chouaib Guidoum, Amel Henider and Iago Giné-Vázquez"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
