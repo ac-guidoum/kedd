@@ -95,7 +95,9 @@ h.ucv(x, deriv.order = 0L, kernel = "gaussian",
   Bandwidth choice for density derivatives.
   \emph{Journal of the Royal Statistical Society, Series B}, 223--232.
 }
-\author{Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz}}
+\author{Arsalane Chouaib Guidoum \email{acguidoum@univ-tam.dz},
+  Amel Henider \email{amel.henider@univ-tam.dz} and
+  Iago Giné-Vázquez \email{iago.gin-vaz@protonmail.com}}
 \seealso{
   \code{\linkS4class{bandwidth}}, \code{\link{h.bcv}}, \code{\link{h.ccv}},
   \code{\link{h.mcv}}, \code{\link{h.tcv}}, \code{\link{h.scv}}, \code{\link{h.amise}},
