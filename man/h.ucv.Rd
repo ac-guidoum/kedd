@@ -74,7 +74,7 @@ h.ucv(x, deriv.order = 0L, kernel = "gaussian",
 }
 \references{
   Bowman, A. (1984).
-  An alternative method of cross-validation for the smoothing of kernel
+  An alternative method of cross-validation for the smoothing of
   density estimates.
   \emph{Biometrika}, \bold{71}, 353--360.
 
