@@ -59,7 +59,7 @@ h.mlcv(x, kernel = "gaussian", lower, upper, tol, nthreads = 0L)
 }
 \references{
   Duin, R. P. W. (1976).
-  On the choice of smoothing parameters of Parzen estimators of
+  On the choice of smoothing parameters for Parzen estimators of
   probability density functions.
   \emph{IEEE Transactions on Computers}, \bold{C-25}, 1175--1179.
 
