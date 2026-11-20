@@ -94,7 +94,7 @@ h.amise(x, deriv.order = 0L, kernel = "gaussian")
   Iago Giné-Vázquez \email{iago.gin-vaz@protonmail.com}}
 \seealso{
   \code{\linkS4class{bandwidth}}, \code{\link{h.ucv}}, \code{\link{h.bcv}},
-  \code{\link{h.ccv}}, \code{\link{h.mcv}}, \code{\link{h.tcv}}, \code{\link{h.scv}},
+  \code{\link{h.ccv}}, \code{\link{h.mcv}}, \code{\link{h.tcv}}, \code{\link{h.scv}}, \code{\link{h.pcv}},
   \code{\link{h.mlcv}}, \code{\link{dkde}}.
 }
 \examples{

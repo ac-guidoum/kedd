@@ -39,6 +39,7 @@ by_n <- list(
   "h.mcv(x)"                = function(x) h.mcv(x),
   "h.tcv(x)"                = function(x) h.tcv(x),
   "h.scv(x)"                = function(x) h.scv(x),
+  "h.pcv(x, m = 4)"         = function(x) h.pcv(x, m = 4),
   "h.mlcv(x)"               = function(x) h.mlcv(x),
   "h.ucv(x, deriv.order = 1)" = function(x) h.ucv(x, deriv.order = 1),
   "dkde(data = x, h = 0.4)" = function(x) dkde(data = x, h = 0.4),
@@ -90,7 +91,7 @@ md(data.frame(Function = names(t2), `Time (ms)` = fmt(t2), check.names = FALSE, 
 ## 3. threads -------------------------------------------------------------------
 x2k <- xs[[4]]
 thr <- list(UCV = h.ucv, BCV1 = h.bcv, CCV = h.ccv, MCV = h.mcv, TCV = h.tcv,
-            SCV = h.scv, MLCV = h.mlcv)
+            SCV = h.scv, PCV = function(x, ...) h.pcv(x, m = 4, ...), MLCV = h.mlcv)
 t3 <- t(sapply(thr, function(f) c(
   one = suppressWarnings(tm(function() f(x2k, nthreads = 1L))),
   all = suppressWarnings(tm(function() f(x2k, nthreads = 0L))))))

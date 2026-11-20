@@ -113,7 +113,7 @@ h.pcv(x, m = 2L, criterion = "UCV", nrep = 1L, deriv.order = 0L,
 \seealso{
   \code{\linkS4class{bandwidth}}, \code{\link{h.ucv}}, \code{\link{h.tcv}},
   \code{\link{h.mcv}}, \code{\link{h.ccv}}, \code{\link{h.bcv}},
-  \code{\link{dkde}}.
+  \code{\link{h.scv}}, \code{\link{h.amise}}, \code{\link{h.mlcv}}, \code{\link{dkde}}.
 }
 \examples{
 set.seed(1)

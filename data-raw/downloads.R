@@ -6,7 +6,7 @@ suppressMessages({ library(cranlogs); library(dlstats); library(ggplot2) })
 my <- function(d) paste(month.abb[as.integer(format(d, "%m"))], format(d, "%Y"))  # locale-free
 
 pkg   <- "kedd"
-first <- as.Date("2014-08-01")            # kedd 1.0.1 released 2014-08-18
+first <- as.Date("2013-08-01")            # kedd 1.0 first released on CRAN in August 2013
 last  <- Sys.Date() - 1
 
 ## daily counts (cranlogs) ----------------------------------------------------

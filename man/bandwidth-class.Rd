@@ -74,7 +74,7 @@
 \seealso{
   \code{\link{h.ucv}}, \code{\link{h.bcv}}, \code{\link{h.ccv}},
   \code{\link{h.mcv}}, \code{\link{h.tcv}}, \code{\link{h.scv}},
-  \code{\link{h.amise}}, \code{\link{h.mlcv}}, \code{\link{dkde}}.
+  \code{\link{h.pcv}}, \code{\link{h.amise}}, \code{\link{h.mlcv}}, \code{\link{dkde}}.
 }
 \examples{
 x <- rnorm(100)

@@ -66,7 +66,7 @@ h.scv(x, g = NULL, deriv.order = 0L, kernel = "gaussian",
   Amel Henider \email{amel.henider@univ-tam.dz} and
   Iago Giné-Vázquez \email{iago.gin-vaz@protonmail.com}}
 \seealso{
-  \code{\link{h.ucv}}, \code{\link{h.bcv}}, \code{\linkS4class{bandwidth}}.
+  \code{\link{h.ucv}}, \code{\link{h.bcv}}, \code{\link{h.pcv}}, \code{\linkS4class{bandwidth}}.
 }
 \examples{
 x <- rnorm(200)

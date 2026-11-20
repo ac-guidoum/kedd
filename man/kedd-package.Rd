@@ -135,7 +135,7 @@
 }
 \seealso{
   \code{\link{dkde}}, \code{\link{kernel.fun}}, \code{\link{kernel.conv}},
-  \code{\link{kernel.pow}}, \code{\link{h.ucv}}, \code{\link{h.scv}},
+  \code{\link{kernel.pow}}, \code{\link{h.ucv}}, \code{\link{h.scv}}, \code{\link{h.pcv}},
   \code{\linkS4class{bandwidth}}, \code{\link{kedd-data}},
   \code{vignette("kedd")}, \code{citation("kedd")}.
 }

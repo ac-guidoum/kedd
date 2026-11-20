@@ -109,7 +109,8 @@ dkde(x = NULL, data, h, deriv.order = 0L,
   Iago Giné-Vázquez \email{iago.gin-vaz@protonmail.com}}
 \seealso{
   \code{\link{kernel.fun}}, \code{\link{h.ucv}}, \code{\link{h.bcv}},
-  \code{\link{h.amise}}, \code{\link[stats]{density}} (for \eqn{r=0}).
+  \code{\link{h.scv}}, \code{\link{h.pcv}}, \code{\link{h.amise}},
+  \code{\link[stats]{density}} (for \eqn{r=0}).
 }
 \examples{
 x <- rnorm(100)

@@ -256,9 +256,8 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
             <li><code>optimize()</code> on <span class="math">[0.01 h<sub>os</sub>, 2 h<sub>os</sub>]</span>, <span class="math">h<sub>os</sub></span> = over-smoothing bandwidth (slot <code>hos</code>)</li>
             <li><code>tol</code> default <code>0.01 * lower</code></li>
             <li>invalid <code>lower</code>/<code>upper</code> &rArr; warning, defaults used</li>
-            <li>warning <i>"minimum occurred at one end of the range"</i> &rArr; inspect <code>plot(bw)</code>, widen <code>lower</code>/<code>upper</code></li>
+            <li>warning <i>"minimum occurred at one end of the range"</i> &rArr; inspect <code>plot(bw)</code>, widen <code>lower</code>/<code>upper</code>, e.g. <code>h.ucv(x, lower = 0.05, upper = 1.5)</code></li>
           </ul>
-<pre><span class="k">h.ucv</span>(x, lower = 0.05, upper = 1.5)</pre>
         </div>
       </section>
 
@@ -296,6 +295,7 @@ p + ggplot2::<span class="k">geom_vline</span>(xintercept = 0)</pre>
             <li><b>UCV</b>: unbiased but very variable, tends to undersmooth (worse as <span class="math">r</span> grows)</li>
             <li><b>BCV, CCV, MCV</b>: stable, biased towards large <span class="math">h</span>; may have no interior minimum on multimodal data; BCV2 may have a spurious minimum at small <span class="math">h</span> (check <code>plot(bw)</code>)</li>
             <li><b>SCV</b>: good compromise for Gaussian kernels (default pilot <code>g</code> is the density pilot for every r)</li>
+            <li><b>PCV</b>: averages a CV criterion over <span class="math">m</span> subsamples; less variable than that criterion, more <code>nrep</code> = more stable</li>
             <li><b>AMISE</b>: instant rule of thumb, good for unimodal data</li>
             <li>Compare several criteria on one plot (right) before deciding</li>
           </ul>
@@ -313,8 +313,9 @@ p + ggplot2::<span class="k">geom_vline</span>(xintercept = 0)</pre>
             <tr><td><code>h</code></td><td>selected bandwidth</td></tr>
             <tr><td><code>min.obj</code></td><td>criterion value at <code>h</code></td></tr>
             <tr><td><code>hos</code></td><td>over-smoothing bandwidth</td></tr>
-            <tr><td><code>method</code></td><td>"UCV", "BCV1", …, "MLCV"</td></tr>
+            <tr><td><code>method</code></td><td>"UCV", "BCV1", …, "PCV", "MLCV"</td></tr>
             <tr><td><code>kernel</code>, <code>deriv.order</code>, <code>data</code></td><td>inputs used</td></tr>
+            <tr><td><code>criterion</code>, <code>groups</code></td><td>PCV only: criterion and subsample of each observation</td></tr>
           </table>
         </div>
       </section>

@@ -101,7 +101,7 @@ $q = \lceil t + 1 \rceil - 1$ ($q = t$ for an integer $t$) from $|x| = 1$, and
 $q = \lceil s + 1 \rceil - 1$ from $x = 0$ unless $s$ is an even integer; $q$
 is the smaller of the two. For example `pow(2,4)`: $q = 4$ and 4, 4, 2, 1, 2,
 0; `pow(1.5,2.5)`: $q = 2$ and 1, 1, 1, 0, —, —. `h.scv` (Gaussian kernel) has
-no limit and `h.mlcv` is for $r = 0$ only.
+no limit and `h.mlcv` is for $r = 0$ only; `h.pcv` has the limits of its criterion.
 The same table is in `?kedd` (section *Maximum derivative order*).
 
 ### Main functions
@@ -235,29 +235,30 @@ source("data-raw/benchmark.R")                 # execution time of every functio
 
 CRAN downloads of `kedd` from the RStudio/Posit CRAN mirror, obtained with
 [`cranlogs`](https://CRAN.R-project.org/package=cranlogs) (daily counts since
-2014) and cross-checked with [`dlstats`](https://CRAN.R-project.org/package=dlstats)
-(monthly counts; identical on the 69 months both cover, Jan 2021 – Sep 2026).
+the first release in August 2013) and cross-checked with
+[`dlstats`](https://CRAN.R-project.org/package=dlstats) (monthly counts; identical
+on the 70 months both cover, Jan 2021 – Oct 2026).
 
 ![Monthly CRAN downloads of kedd](man/figures/downloads.png)
 
-| Statistic (as of 29 Oct 2026) | Value |
+| Statistic (as of 19 Nov 2026) | Value |
 |---|---:|
-| Total downloads (Aug 2014 – Oct 2026) | **64,271** |
-| Last month | 387 |
-| Last week | 54 |
-| Monthly mean / median | 437 / 309 |
+| Total downloads (Aug 2013 – Nov 2026) | **66,708** |
+| Last month | 735 |
+| Last week | 301 |
+| Monthly mean / median | 417 / 298 |
 | Best month | Sep 2025 (1,776) |
 
-| Year | 2014* | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026* |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Downloads | 1,285 | 3,872 | 2,818 | 2,918 | 3,856 | 7,657 | 12,813 | 10,566 | 4,844 | 743 | 3,462 | 6,260 | 3,177 |
+| Year | 2013* | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026* |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Downloads | 586 | 2,472 | 3,872 | 2,818 | 2,918 | 3,856 | 7,657 | 12,813 | 10,566 | 4,844 | 743 | 3,462 | 6,260 | 3,841 |
 
-\* partial years (from Aug 2014; to 29 Oct 2026). The badges above are live; the
+\* partial years (from Aug 2013; to 19 Nov 2026). The badges above are live; the
 figures in this section are a snapshot.
 
 ```r
 library(cranlogs)
-sum(cran_downloads("kedd", from = "2014-08-01", to = Sys.Date() - 1)$count)  # total
+sum(cran_downloads("kedd", from = "2013-08-01", to = Sys.Date() - 1)$count)  # total
 cran_downloads("kedd", when = "last-month")
 
 library(dlstats)
@@ -300,6 +301,9 @@ To cite the package (`citation("kedd")`):
   Physica Verlag, Vienna.
 - Hall, P., Marron, J. S. and Park, B. U. (1992). Smoothed cross-validation.
   *Probability Theory and Related Fields*, **92**, 1–20.
+- Härdle, W., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for
+  density derivatives. *Journal of the Royal Statistical Society B*, **52**,
+  223–232.
 - Jones, M. C. and Kappenman, R. F. (1992). On a class of kernel density estimate
   bandwidth selectors. *Scandinavian Journal of Statistics*, **19**, 337–349.
 - Marron, J. S. (1987). Partitioned cross-validation. *Econometric Reviews*, **6**, 271–283.
@@ -312,7 +316,4 @@ To cite the package (`citation("kedd")`):
 - Stute, W. (1992). Modified cross validation in density estimation. *Journal of
   Statistical Planning and Inference*, **30**, 293–305.
 - Wand, M. P. and Jones, M. C. (1995). *Kernel Smoothing*. Chapman & Hall.
-- Härdle, W., Marron, J. S. and Wand, M. P. (1990). Bandwidth choice for
-  density derivatives. *Journal of the Royal Statistical Society B*, **52**,
-  223–232.
 

@@ -104,7 +104,7 @@ $q = \lceil t + 1 \rceil - 1$ ($q = t$ for an integer $t$) from $|x| = 1$, and
 $q = \lceil s + 1 \rceil - 1$ from $x = 0$ unless $s$ is an even integer; $q$
 is the smaller of the two. For example `pow(2,4)`: $q = 4$ and 4, 4, 2, 1, 2,
 0; `pow(1.5,2.5)`: $q = 2$ and 1, 1, 1, 0, —, —. `h.scv` (Gaussian kernel) has
-no limit and `h.mlcv` is for $r = 0$ only.
+no limit and `h.mlcv` is for $r = 0$ only; `h.pcv` has the limits of its criterion.
 
 `kernel.fun()` evaluates $K^{(r)}$ on a grid (or at given points) and returns an
 object of class `kfun`:
@@ -230,7 +230,7 @@ ggplot2::ggplot(est, ggplot2::aes(x, y, colour = kernel)) +
 ## 4. Bandwidth selectors
 
 All selectors return an object of class `bandwidth` (slots `h`, `min.obj`,
-`hos`, `method`, ...). Writing $\psi_h(u) = u/h$ for the scaled differences
+`hos`, `method`, ..., and for PCV `criterion` and `groups`). Writing $\psi_h(u) = u/h$ for the scaled differences
 $X_j - X_i$, the criteria minimised are:
 
 * **AMISE** (`h.amise`) — closed-form rule with a normal reference
@@ -286,7 +286,10 @@ ise <- function(h, r) {
 }
 sel <- list(AMISE = h.amise, UCV = h.ucv, BCV1 = h.bcv,
             BCV2 = function(x, ...) h.bcv(x, whichbcv = 2, ...),
-            CCV = h.ccv, MCV = h.mcv, TCV = h.tcv, SCV = h.scv)
+            CCV = h.ccv, MCV = h.mcv, TCV = h.tcv, SCV = h.scv,
+            PCV = function(x, ...) h.pcv(x, m = 2, nrep = 5, ...))
+# reproducible random partitions of PCV (UCV in 2 subsamples, 5 partitions)
+set.seed(1)
 tab <- sapply(0:1, function(r) {
   h <- sapply(sel, function(f) f(x, deriv.order = r)@h)
   c(rbind(h = h, ISE = sapply(h, ise, r = r)))
@@ -295,9 +298,6 @@ dimnames(tab) <- list(paste(rep(names(sel), each = 2), c("h", "ISE")),
                       c("r = 0", "r = 1"))
 round(tab, 4)
 c(MLCV = h.mlcv(x)@h)   # density only
-# partitioned cross-validation: UCV in 2 subsamples, reproducible partitions
-set.seed(1)
-c(PCV = h.pcv(x, m = 2, nrep = 5)@h)
 ```
 
 Two well-known behaviours show up in such comparisons:
@@ -334,8 +334,10 @@ instance, is hard to estimate: the five narrow peaks need a small bandwidth.
 ```{r claw}
 f_claw <- function(x) 0.5 * dnorm(x) +
   rowSums(sapply(0:4, function(l) 0.1 * dnorm(x, l / 2 - 1, 0.1)))
+set.seed(1)
 bw_claw <- sapply(list(UCV = h.ucv, BCV1 = h.bcv, MCV = h.mcv, SCV = h.scv,
-                       AMISE = h.amise), function(f) suppressWarnings(f(claw))@h)
+                       PCV = function(s) h.pcv(s, m = 2, nrep = 5), AMISE = h.amise),
+                  function(f) suppressWarnings(f(claw))@h)
 round(bw_claw, 4)
 p <- quiet(plot(dkde(data = claw, h = bw_claw[["UCV"]])))
 p + ggplot2::stat_function(fun = f_claw, linetype = "dashed")
@@ -346,8 +348,10 @@ The same selectors on the five samples:
 ```{r datasets}
 samples <- list(kurtotic = kurtotic, outlier = outlier, bimodal = bimodal,
                 trimodal = trimodal, claw = claw)
+set.seed(1)
 round(sapply(samples, function(s)
-  sapply(list(AMISE = h.amise, UCV = h.ucv, BCV1 = h.bcv, MCV = h.mcv, SCV = h.scv),
+  sapply(list(AMISE = h.amise, UCV = h.ucv, BCV1 = h.bcv, MCV = h.mcv, SCV = h.scv,
+              PCV = function(s) h.pcv(s, m = 2, nrep = 5)),
          function(f) suppressWarnings(f(s))@h)), 4)
 ```
 
