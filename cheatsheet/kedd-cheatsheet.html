@@ -80,7 +80,7 @@
       <h1>kedd <span>:: CHEATSHEET</span></h1>
       <div class="tag">Kernel estimator and bandwidth selection for a density and its derivatives &mdash; S4 classes, ggplot2 graphics, Rcpp/OpenMP</div>
     </div>
-    <div class="right"><b>kedd 2.0.1</b><br>A. C. Guidoum, A. Henider &amp; I. Gin&eacute;-V&aacute;zquez<br><code>library(kedd)</code></div>
+    <div class="right"><b>kedd 2.0.2</b><br>A. C. Guidoum, A. Henider &amp; I. Gin&eacute;-V&aacute;zquez<br><code>library(kedd)</code></div>
   </header>
 
   <div class="cols">
@@ -132,20 +132,20 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
         <h2>Kernels <small>kernel = "…"</small></h2>
         <div class="b">
           <table class="kt">
-            <tr><th>name</th><th>K(x)</th><th>supp.</th><th>r<sub>max</sub></th><th>UCV/MCV/CCV</th></tr>
-            <tr><td><code>gaussian</code></td><td class="math">&phi;(x)</td><td>&#8477;</td><td>any</td><td>any</td></tr>
-            <tr><td><code>epanechnikov</code></td><td class="math">&frac34;(1&minus;x&sup2;)</td><td>[&minus;1,1]</td><td>2</td><td>1 / 0 / &ndash;</td></tr>
-            <tr><td><code>uniform</code></td><td class="math">&frac12;</td><td>[&minus;1,1]</td><td>0</td><td>0 / &ndash; / &ndash;</td></tr>
-            <tr><td><code>triangular</code></td><td class="math">1&minus;|x|</td><td>[&minus;1,1]</td><td>1</td><td>0 / &ndash; / &ndash;</td></tr>
-            <tr><td><code>biweight</code></td><td class="math">15/16 (1&minus;x&sup2;)&sup2;</td><td>[&minus;1,1]</td><td>4</td><td>2 / 1 / 0</td></tr>
-            <tr><td><code>triweight</code></td><td class="math">35/32 (1&minus;x&sup2;)&sup3;</td><td>[&minus;1,1]</td><td>6</td><td>3 / 2 / 1</td></tr>
-            <tr><td><code>tricube</code></td><td class="math">70/81 (1&minus;|x|&sup3;)&sup3;</td><td>[&minus;1,1]</td><td>9</td><td>3 / 2 / 1</td></tr>
-            <tr><td><code>cosine</code></td><td class="math">&pi;/4 cos(&pi;x/2)</td><td>[&minus;1,1]</td><td>any</td><td>1 / 0 / &ndash;</td></tr>
-            <tr><td><code>silverman</code></td><td class="math">&frac12;e<sup>&minus;|x|/&radic;2</sup>sin(|x|/&radic;2+&pi;/4)</td><td>&#8477;</td><td>any</td><td>any</td></tr>
-            <tr><td><code>logistic</code></td><td class="math">e<sup>&minus;x</sup>/(1+e<sup>&minus;x</sup>)&sup2;</td><td>&#8477;</td><td>20</td><td>8 / 8 / 8</td></tr>
-            <tr><td><code>pow(s,t)</code></td><td class="math">c<sub>s,t</sub>(1&minus;|x|<sup>s</sup>)<sup>t</sup></td><td>[&minus;1,1]</td><td>min(st,16)</td><td>r*/r*&minus;1/r*&minus;2</td></tr>
+            <tr><th>name</th><th>K(x)</th><th>supp.</th><th>q</th><th>dkde/UCV/MCV/BCV1/CCV</th></tr>
+            <tr><td><code>gaussian</code></td><td class="math">&phi;(x)</td><td>&#8477;</td><td>&infin;</td><td>any</td></tr>
+            <tr><td><code>epanechnikov</code></td><td class="math">&frac34;(1&minus;x&sup2;)</td><td>[&minus;1,1]</td><td>1</td><td>1/0/&ndash;/&ndash;/&ndash;</td></tr>
+            <tr><td><code>uniform</code></td><td class="math">&frac12;</td><td>[&minus;1,1]</td><td>0</td><td>0/0/&ndash;/&ndash;/&ndash;</td></tr>
+            <tr><td><code>triangular</code></td><td class="math">1&minus;|x|</td><td>[&minus;1,1]</td><td>1</td><td>1/0/&ndash;/&ndash;/&ndash;</td></tr>
+            <tr><td><code>biweight</code></td><td class="math">15/16 (1&minus;x&sup2;)&sup2;</td><td>[&minus;1,1]</td><td>2</td><td>2/1/0/0/&ndash;</td></tr>
+            <tr><td><code>triweight</code></td><td class="math">35/32 (1&minus;x&sup2;)&sup3;</td><td>[&minus;1,1]</td><td>3</td><td>3/1/0/1/&ndash;</td></tr>
+            <tr><td><code>tricube</code></td><td class="math">70/81 (1&minus;|x|&sup3;)&sup3;</td><td>[&minus;1,1]</td><td>3</td><td>3/1/0/1/&ndash;</td></tr>
+            <tr><td><code>cosine</code></td><td class="math">&pi;/4 cos(&pi;x/2)</td><td>[&minus;1,1]</td><td>1</td><td>1/0/&ndash;/&ndash;/&ndash;</td></tr>
+            <tr><td><code>silverman</code></td><td class="math">&frac12;e<sup>&minus;|x|/&radic;2</sup>sin(|x|/&radic;2+&pi;/4)</td><td>&#8477;</td><td>3</td><td>3/1/&ndash;/&ndash;/&ndash;</td></tr>
+            <tr><td><code>logistic</code></td><td class="math">e<sup>&minus;x</sup>/(1+e<sup>&minus;x</sup>)&sup2;</td><td>&#8477;</td><td>&infin;</td><td>20/8/8/8/8</td></tr>
+            <tr><td><code>pow(s,t)</code></td><td class="math">c<sub>s,t</sub>(1&minus;|x|<sup>s</sup>)<sup>t</sup></td><td>[&minus;1,1]</td><td>q<sub>s,t</sub></td><td>q/&lfloor;q/2&rfloor;/&lfloor;q/2&rfloor;&minus;1/q&minus;2/&lfloor;q/2&rfloor;&minus;2</td></tr>
           </table>
-          <p class="note" style="margin-top:1.2mm">Names can be abbreviated (<code>"epa"</code>). r<sub>max</sub>: last non-zero K<sup>(r)</sup> (kernel.fun, kernel.conv, dkde). UCV (also BCV, TCV, AMISE) / MCV / CCV: highest r with a finite criterion, else <code>NA</code> + warning; SCV: any, MLCV: 0; &ndash; = not available; r* = largest integer r &lt; t+&frac12; (2r &le; st if s, t are integers; r &lt; s+&frac12; unless s is even), at most 6.</p>
+          <p class="note" style="margin-top:1.2mm">Names can be abbreviated (<code>"epa"</code>). Largest r allowed: <b>q</b> = regularity of K (K<sup>(m)</sup> is a true derivative for m &le; q); a criterion using K<sup>(m)</sup> needs m &le; q: dkde, AMISE m = r; UCV, TCV m = 2r; MCV 2r+2; BCV1 r+2; BCV2, CCV 2r+4. Above: <code>NA</code> + warning (dkde: warning). Silverman (order 4, &mu;<sub>2</sub> = 0): no BCV, MCV, CCV. Selectors capped at r = 8 (logistic), 6 (pow). q<sub>s,t</sub> = min(&lceil;t+1&rceil;&minus;1, &lceil;s+1&rceil;&minus;1), the s term dropped if s is even; q = t for integer t. SCV: any r; MLCV: r = 0; &ndash; = not available.</p>
         </div>
       </section>
 
@@ -210,7 +210,7 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
       </section>
     </div>
   </div>
-  <footer><span>kedd 2.0.1 &middot; GPL (&ge; 2) &middot; github.com/ac-guidoum/kedd &middot; doi:10.48550/arXiv.2012.06102</span><span>vignette("kedd") &middot; demo(package = "kedd") &middot; ?kedd</span><span>page 1 / 2</span></footer>
+  <footer><span>kedd 2.0.2 &middot; GPL (&ge; 2) &middot; github.com/ac-guidoum/kedd &middot; doi:10.48550/arXiv.2012.06102</span><span>vignette("kedd") &middot; demo(package = "kedd") &middot; ?kedd</span><span>page 1 / 2</span></footer>
 </div>
 
 <!-- ============================== PAGE 2 ============================== -->
@@ -219,9 +219,9 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
     <img src="../man/figures/logo.png" alt="kedd logo">
     <div>
       <h1>kedd <span>:: BANDWIDTH SELECTION</span></h1>
-      <div class="tag">Eight data-driven selectors &mdash; all return an S4 object of class <b>bandwidth</b></div>
+      <div class="tag">Nine data-driven selectors &mdash; all return an S4 object of class <b>bandwidth</b></div>
     </div>
-    <div class="right"><b>common arguments</b><br><code>x, deriv.order = 0, kernel = "gaussian",</code><br><code>lower, upper, tol, nthreads = 0</code></div>
+    <div class="right"><b>common arguments</b><br><code>x, deriv.order = 0, kernel = "gaussian",</code><br><code>lower, upper, tol, nthreads = 0</code><br>+ <code>whichbcv</code>, <code>g</code>, <code>m</code>: see ?h.bcv, ?h.scv, ?h.pcv</div>
   </header>
 
   <div class="cols">
@@ -232,19 +232,20 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
         <div class="b">
           <table>
             <tr><th>function</th><th>method</th><th>r</th><th>kernels</th></tr>
-            <tr><td class="fn">h.amise</td><td>AMISE rule (normal reference)</td><td>any</td><td>all</td></tr>
-            <tr><td class="fn">h.ucv</td><td>unbiased / least-squares CV</td><td>any</td><td>all</td></tr>
-            <tr><td class="fn">h.bcv</td><td>biased CV: <code>whichbcv = 1</code> (BCV1) or <code>2</code> (BCV2)</td><td>any</td><td>all</td></tr>
-            <tr><td class="fn">h.ccv</td><td>complete CV</td><td>any</td><td>all</td></tr>
-            <tr><td class="fn">h.mcv</td><td>modified CV</td><td>any</td><td>all</td></tr>
-            <tr><td class="fn">h.tcv</td><td>trimmed CV</td><td>any</td><td>all</td></tr>
+            <tr><td class="fn">h.amise</td><td>AMISE rule (normal reference)</td><td>r &le; q</td><td>all</td></tr>
+            <tr><td class="fn">h.ucv</td><td>unbiased / least-squares CV</td><td>2r &le; q</td><td>all</td></tr>
+            <tr><td class="fn">h.bcv</td><td>biased CV: <code>whichbcv = 1</code> (BCV1) or <code>2</code> (BCV2)</td><td>r+2 &le; q / 2r+4 &le; q</td><td>not Silverman</td></tr>
+            <tr><td class="fn">h.ccv</td><td>complete CV</td><td>2r+4 &le; q</td><td>not Silverman</td></tr>
+            <tr><td class="fn">h.mcv</td><td>modified CV</td><td>2r+2 &le; q</td><td>not Silverman</td></tr>
+            <tr><td class="fn">h.tcv</td><td>trimmed CV</td><td>2r &le; q</td><td>all</td></tr>
             <tr><td class="fn">h.scv</td><td>smoothed CV, pilot <code>g</code></td><td>any</td><td>Gaussian</td></tr>
+            <tr><td class="fn">h.pcv</td><td>partitioned CV (<code>m</code> subsamples)</td><td>as criterion</td><td>as criterion</td></tr>
             <tr><td class="fn">h.mlcv</td><td>maximum-likelihood CV</td><td>0</td><td>all</td></tr>
           </table>
 <pre>bw &lt;- <span class="k">h.bcv</span>(x, whichbcv = 2, deriv.order = 1,
-            kernel = "triweight")
+            kernel = "pow(2,6)")
 <span class="k">h.scv</span>(x, g = 0.3)                 <span class="c"># own pilot</span>
-<span class="k">h.mlcv</span>(x, kernel = "epanechnikov")</pre>
+<span class="k">h.pcv</span>(x, m = 4, criterion = "TCV")</pre>
         </div>
       </section>
 
@@ -264,7 +265,7 @@ f1 &lt;- <span class="k">dkde</span>(data = x, h = bw@h, deriv.order = 1)
       <section>
         <h2>Graphics <small>ggplot2</small></h2>
         <div class="b">
-          <p>Every <code>plot()</code> prints a ggplot and returns it invisibly; customise with <code>main.title</code>, <code>x.title</code>, <code>y.title</code>, <code>colors = list(…)</code>, <code>theme = ggplot2::theme_bw()</code>, <code>type = "l" | "p" | "o"</code>.</p>
+          <p><code>plot()</code> of <b>dkde</b>, <b>kfun</b>, <b>kconv</b> prints a ggplot and returns it invisibly (of <b>bandwidth</b>: a list, see right); customise with <code>main.title</code>, <code>x.title</code>, <code>y.title</code>, <code>colors = list(…)</code>, <code>theme = ggplot2::theme_bw()</code>, <code>type = "l" | "p" | "o"</code>.</p>
 <pre>p &lt;- <span class="k">plot</span>(<span class="k">dkde</span>(data = x, h = 0.4))
 p + ggplot2::<span class="k">geom_vline</span>(xintercept = 0)</pre>
         </div>
@@ -282,6 +283,7 @@ p + ggplot2::<span class="k">geom_vline</span>(xintercept = 0)</pre>
           <p><b>MCV</b> &nbsp;UCV with the <span class="math">&frac12;&mu;<sub>2</sub>K<sup>(2r+2)</sup></span> correction</p>
           <p><b>TCV</b> &nbsp;UCV where pairs with <span class="math">|u| &le; 1/(nh<sup>2r+1</sup>)</span> are dropped from the <span class="math">K<sup>(2r)</sup></span> term</p>
           <p><b>SCV</b> &nbsp;<span class="math">R(K<sup>(r)</sup>)/(nh<sup>2r+1</sup>) + (&minus;1)<sup>r</sup> 2/(n(n&minus;1)) &sum;<sub>i&lt;j</sub>[&phi;<sup>(2r)</sup><sub>s1</sub> &minus; 2&phi;<sup>(2r)</sup><sub>s2</sub> + &phi;<sup>(2r)</sup><sub>s3</sub>]</span>, &nbsp;<span class="math">s<sub>1</sub>=&radic;(2(h&sup2;+g&sup2;)), s<sub>2</sub>=&radic;(h&sup2;+2g&sup2;), s<sub>3</sub>=&radic;2 g</span>; default <span class="math">g = &sigma;&#770; &middot; 0.9266 n<sup>&minus;2/13</sup></span></p>
+          <p><b>PCV</b> &nbsp;random partition in <span class="math">m</span> subsamples; mean of their scores at <span class="math">h m<sup>1/(2r+5)</sup></span> (Silverman: <span class="math">1/(2r+9)</span>); <code>nrep</code> partitions averaged; <code>set.seed()</code></p>
           <p><b>MLCV</b> &nbsp;maximise <span class="math">n<sup>&minus;1</sup>&sum; log f&#770;<sub>&minus;i</sub>(X<sub>i</sub>)</span></p>
           <p><b>AMISE</b> &nbsp;<span class="math">h = &sigma;&#770; [243(2r+1)R(K<sup>(r)</sup>) / (35 &mu;<sub>2</sub>(K)&sup2; n)]<sup>1/(2r+5)</sup></span></p>
         </div>
@@ -292,8 +294,8 @@ p + ggplot2::<span class="k">geom_vline</span>(xintercept = 0)</pre>
         <div class="b">
           <ul>
             <li><b>UCV</b>: unbiased but very variable, tends to undersmooth (worse as <span class="math">r</span> grows)</li>
-            <li><b>BCV, CCV, MCV</b>: stable, biased towards large <span class="math">h</span>; may have no interior minimum on multimodal data</li>
-            <li><b>SCV</b>: good compromise for Gaussian kernels</li>
+            <li><b>BCV, CCV, MCV</b>: stable, biased towards large <span class="math">h</span>; may have no interior minimum on multimodal data; BCV2 may have a spurious minimum at small <span class="math">h</span> (check <code>plot(bw)</code>)</li>
+            <li><b>SCV</b>: good compromise for Gaussian kernels (default pilot <code>g</code> is the density pilot for every r)</li>
             <li><b>AMISE</b>: instant rule of thumb, good for unimodal data</li>
             <li>Compare several criteria on one plot (right) before deciding</li>
           </ul>
